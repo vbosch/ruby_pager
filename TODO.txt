@@ -1,0 +1,5 @@
+
+https://github.com/cedlemo/ruby-gtk3-tutorial
+http://bundler.io/v1.12/guides/creating_gem.html
+xml  = Nokogiri::XML(File.open('file.xml')) { |config| config.strict.noblanks }
+@hash = Nori.new(:parser => :nokogiri, :advanced_typecasting => false).parse(xml.to_s)
