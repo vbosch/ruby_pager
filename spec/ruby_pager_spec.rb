@@ -9,19 +9,19 @@ RSpec.describe RubyPager::XML , :type => :aruba do
     expect(RubyPager::VERSION).not_to be nil
   end
 
-  it "XML checks file exists" do
+  it "checks file exists" do
     expect(RubyPager::XML.exists?(test_file)).to eql(true)
   end
 
-  it "XML provides hash of loaded file" do
+  it "provides hash of loaded file" do
     expect(RubyPager::XML.load(test_file)).to be_a(Hash)
   end
 
-  it "XML provides nil when loading incorrect/inexistent file" do
+  it "provides nil when loading incorrect/inexistent file" do
     expect(RubyPager::XML.load("doesnotexist.xml")).to be_nil
   end
 
-  it "XML saves file to filesystem" do
+  it "saves file to filesystem" do
     check=File.exists?(out_file)
     expect(check).to eql(true)
   end
@@ -38,8 +38,12 @@ end
 RSpec.describe RubyPager::Page , :type => :aruba do
   let(:test_file){ './test.xml'}
   before{@page=RubyPager::Page.new(test_file);}
-  it "Page allows access to file name" do
+  it "allows access to file name" do
     expect(@page.file_name).to eql(test_file)
+  end
+
+  it "gives access to the text regions inside" do
+    expect(@page.text_regions).not_to be_nil
   end
 
 
