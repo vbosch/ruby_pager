@@ -20,6 +20,10 @@ module RubyPager
     def load_baseline()
       @baseline = Coords.new(@full_data["Baseline"]["@points"]);
     end
+
+    def get_consolidated_data
+
+    end
   end
 
 end

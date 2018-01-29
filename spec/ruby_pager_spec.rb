@@ -103,12 +103,25 @@ RSpec.describe RubyPager::Text_Line , :type => :aruba do
 end
 
 RSpec.describe RubyPager::Coords, :type => :aruba do
-  let(:test_file){ './test.xml'}
-  let(:out_page_file){'./page.xml'}
-  before{@coords=RubyPager::Page.new(test_file).text_regions.values[0].text_lines.values[0].contour;}
-  it "allows access to its underlying points" do
-    expect(@coords.points).not_to be_nil
+  before{@coords=RubyPager::Coords.new("1,2 3,4 5,6")}
 
+  it "allows access to the underlying points" do
+    expect(@coords[0].id).to eql(0)
+  end
+  it "throws exception when accessing a non existing point possition" do
+    expect{@coords[-1]}.to raise_error(RangeError)
+  end
+
+  it "processes the correct number of points" do
+    expect(@coords.size).to eql(3)
+  end
+
+  it "allows points to be added" do
+    @coords.push(RubyPager::Coord.new(4,"7,8"))
+    expect(@coords.size).to eql(4)
+  end
+  it "throws exception when something other than a coord is added" do
+    expect{@coords.push(2)}.to raise_error(ArgumentError)
   end
 end
 
@@ -116,6 +129,20 @@ RSpec.describe RubyPager::Coord, :type => :aruba do
   before{@coord=RubyPager::Coord.new(1,"10,15")}
   it "allows access to its possition id" do
     expect(@coord.id).to eql(1)
+  end
+
+  it "allow to update the coord values" do
+    @coord.x=2
+    @coord.y=3
+    expect(@coord.x).to eql(2) and expect(@coord.y).to eql(3)
+  end
+
+  it "throws exception when X coord is updated with negative value " do
+    expect{@coord.x=-2}.to raise_error(StandardError)
+  end
+
+  it "throws exception when Y coord is updated with negative value " do
+    expect{@coord.y=-2}.to raise_error(StandardError)
   end
 
   it "proccess correctly the data string" do
@@ -126,5 +153,10 @@ RSpec.describe RubyPager::Coord, :type => :aruba do
     expect{RubyPager::Coord.new(1,"10,")}.to raise_error(StandardError)
   end
 
+  it "consolidates correctly and give back updated data in original format" do
+    @coord.x=2
+    @coord.y=3
+    expect(@coord.get_consolidated_data).to eql("2,3")
+  end
 
 end

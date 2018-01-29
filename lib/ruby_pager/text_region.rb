@@ -19,6 +19,10 @@ module RubyPager
       }
     end
 
+    def get_consolidated_data
+
+    end
+
   end
 
 end
