@@ -95,8 +95,8 @@ RSpec.describe RubyPager::Text_Line , :type => :aruba do
     expect(@line.text).not_to be_nil
   end
 
-  it "allows access to the underlying coords" do
-    expect(@line.coords).not_to be_nil
+  it "allows access to its contour" do
+    expect(@line.contour).not_to be_nil
 
   end
 
@@ -105,11 +105,26 @@ end
 RSpec.describe RubyPager::Coords, :type => :aruba do
   let(:test_file){ './test.xml'}
   let(:out_page_file){'./page.xml'}
-  before{@page=RubyPager::Page.new(test_file);}
+  before{@coords=RubyPager::Page.new(test_file).text_regions.values[0].text_lines.values[0].contour;}
+  it "allows access to its underlying points" do
+    expect(@coords.points).not_to be_nil
+
+  end
 end
 
 RSpec.describe RubyPager::Coord, :type => :aruba do
-  let(:test_file){ './test.xml'}
-  let(:out_page_file){'./page.xml'}
-  before{@page=RubyPager::Page.new(test_file);}
+  before{@coord=RubyPager::Coord.new(1,"10,15")}
+  it "allows access to its possition id" do
+    expect(@coord.id).to eql(1)
+  end
+
+  it "proccess correctly the data string" do
+    expect(@coord.x).to eql(10) and expect(@coord.y).to eql(15)
+  end
+
+  it "throws exception when passed incorrect coord data" do
+    expect{RubyPager::Coord.new(1,"10,")}.to raise_error(StandardError)
+  end
+
+
 end
