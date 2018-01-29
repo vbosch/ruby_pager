@@ -82,9 +82,34 @@ RSpec.describe RubyPager::Text_Region , :type => :aruba do
 
 end
 
-RSpec.describe RubyPager::Text_Region , :type => :aruba do
+RSpec.describe RubyPager::Text_Line , :type => :aruba do
+  let(:test_file){ './test.xml'}
+  let(:out_page_file){'./page.xml'}
+  before{@line=RubyPager::Page.new(test_file).text_regions.values[0].text_lines.values[0];}
+
+  it "allows access to the text line id" do
+    expect(@line.id).not_to be_nil
+  end
+
+  it "allows access to the actual text inside the text line" do
+    expect(@line.text).not_to be_nil
+  end
+
+  it "allows access to the underlying coords" do
+    expect(@line.coords).not_to be_nil
+
+  end
+
+end
+
+RSpec.describe RubyPager::Coords, :type => :aruba do
   let(:test_file){ './test.xml'}
   let(:out_page_file){'./page.xml'}
   before{@page=RubyPager::Page.new(test_file);}
+end
 
+RSpec.describe RubyPager::Coord, :type => :aruba do
+  let(:test_file){ './test.xml'}
+  let(:out_page_file){'./page.xml'}
+  before{@page=RubyPager::Page.new(test_file);}
 end

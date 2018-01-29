@@ -1,2 +1,5 @@
-class Coord
+
+module RubyPager
+  class Coord
+  end
 end
