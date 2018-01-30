@@ -8,14 +8,18 @@ module RubyPager
       @id = ex_index
       load_coords()
     end
+    def id=(ex_id)
+      raise(StandardError, "Got passed a negative value to update the x coord") if ex_id.to_i < 0
+      @id=ex_id.to_i
+    end
 
     def x=(x_coord)
-      raise(StandardError, "Got passed a negative value to update the x coord") if x_coord < 0
+      raise(StandardError, "Got passed a negative value to update the x coord") if x_coord.to_i < 0
       @x=x_coord.to_i
     end
 
     def y=(y_coord)
-      raise(StandardError, "Got passed a negative value to update the y coord") if y_coord < 0
+      raise(StandardError, "Got passed a negative value to update the y coord") if y_coord.to_i < 0
       @y=y_coord.to_i
     end
 

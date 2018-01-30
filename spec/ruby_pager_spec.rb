@@ -45,7 +45,7 @@ RSpec.describe RubyPager::Page , :type => :aruba do
   end
 
   it "gives access to the text regions inside" do
-    expect(@page.text_regions).not_to be_nil
+    expect(@page["TextRegion_1507554599035_50"]).not_to be_nil
   end
 
   it "saves contents a PAGE xml file" do
@@ -56,7 +56,7 @@ RSpec.describe RubyPager::Page , :type => :aruba do
 
   it "loads the correct number of text regions" do
     external_count=`cat test.xml | grep '<TextRegion' | wc -l`.to_i
-    expect(@page.text_regions.size).to eql(external_count)
+    expect(@page.size).to eql(external_count)
   end
 
 end
@@ -64,20 +64,42 @@ end
 RSpec.describe RubyPager::Text_Region , :type => :aruba do
   let(:test_file){ './test.xml'}
   let(:out_page_file){'./page.xml'}
-  before{@page=RubyPager::Page.new(test_file);}
+  before{@region=RubyPager::Page.new(test_file)["TextRegion_1507554599035_50"];}
 
   it "allows access to the text region id" do
-    expect(@page.text_regions.values[0].id).not_to be_nil
+    expect(@region.id).not_to be_nil
   end
 
   it "allows access to the custom field" do
-    expect(@page.text_regions.values[0].custom).not_to be_nil
+    expect(@region.custom).not_to be_nil
 
   end
 
   it "allows access to the underlying text lines" do
-    expect(@page.text_regions.values[0].text_lines).not_to be_nil
+    expect(@region["line_0"].id).to eql("line_0")
+  end
 
+  it "allows to ask for the lines it contains by id" do
+    expect(@region.has_line? "line_test").to eql(false) and expect(@region.has_line? "line_0").to eql(true)
+  end
+
+  it "allows to add text lines to the region" do
+    line = RubyPager::Text_Line.new(0,RubyPager::Text_Line.blank_data)
+    line.id="line_test"
+    past_size=@region.size
+    @region.push(line)
+    expect(@region.size).to eql(past_size+1) and expect(@region.has_line? "line_test").to eql(true)
+  end
+  it "throws exception when something other a text line is tried to be added to the region" do
+    expect{@region.push(1)}.to raise_error(ArgumentError)
+  end
+
+  it "consolidates correctly and gives back updated data in original format" do
+    line = RubyPager::Text_Line.new(0,RubyPager::Text_Line.blank_data)
+    line.id="line_test"
+    @region.push(line)
+    data = @region.get_consolidated_data
+    expect(data["Coords"]["@points"]).to eql("16,2 305,0 305,112 16,112 7,8") and expect(data["TextEquiv"]["Unicode"]).to eql("hola") and expect(data["@id"]).to eql("line_x")
   end
 
 end
@@ -85,19 +107,57 @@ end
 RSpec.describe RubyPager::Text_Line , :type => :aruba do
   let(:test_file){ './test.xml'}
   let(:out_page_file){'./page.xml'}
-  before{@line=RubyPager::Page.new(test_file).text_regions.values[0].text_lines.values[0];}
+  before{@line=RubyPager::Page.new(test_file)["TextRegion_1507554599035_50"]["line_0"];}
 
   it "allows access to the text line id" do
     expect(@line.id).not_to be_nil
+  end
+
+  it "allows to change the actual line id" do
+    @line.id = "line_x"
+    expect(@line.id).to eql("line_x")
+  end
+
+  it "allows to change the order index" do
+    @line.index = 100
+    expect(@line.index).to eql(100)
+  end
+
+  it "throws exception when something other than a positive integer is used to update the order index" do
+    expect{@line.index = -1}.to raise_error(ArgumentError)
   end
 
   it "allows access to the actual text inside the text line" do
     expect(@line.text).not_to be_nil
   end
 
+  it "allows to change the actual text present in the line" do
+    @line.text = "hola"
+    expect(@line.text).to eql("hola")
+  end
+
+  it "throws exception when something other than a string is used to update the text" do
+    expect{@line.text = 2}.to raise_error(ArgumentError)
+  end
+
+
   it "allows access to its contour" do
     expect(@line.contour).not_to be_nil
 
+  end
+
+  it "consolidates correctly and gives back updated data in original format" do
+    @line.contour.push(RubyPager::Coord.new(4,"7,8"))
+    @line.contour[0].y=2
+    @line.text="hola"
+    @line.id="line_x"
+    data = @line.get_consolidated_data
+    expect(data["Coords"]["@points"]).to eql("16,2 305,0 305,112 16,112 7,8") and expect(data["TextEquiv"]["Unicode"]).to eql("hola") and expect(data["@id"]).to eql("line_x")
+  end
+
+  it "has a blank data creator" do
+    data = RubyPager::Text_Line.blank_data()
+    expect(data["Coords"]["@points"]).to eql("") and expect(data["TextEquiv"]["Unicode"]).to eql("") and expect(data["@id"]).to eql("")
   end
 
 end
@@ -116,6 +176,7 @@ RSpec.describe RubyPager::Coords, :type => :aruba do
     expect(@coords.size).to eql(3)
   end
 
+
   it "allows points to be added" do
     @coords.push(RubyPager::Coord.new(4,"7,8"))
     expect(@coords.size).to eql(4)
@@ -123,6 +184,22 @@ RSpec.describe RubyPager::Coords, :type => :aruba do
   it "throws exception when something other than a coord is added" do
     expect{@coords.push(2)}.to raise_error(ArgumentError)
   end
+  it "consolidates correctly and give back updated data in original format" do
+    @coords.push(RubyPager::Coord.new(4,"7,8"))
+    @coords[0].x=2
+    expect(@coords.get_consolidated_data).to eql("2,2 3,4 5,6 7,8")
+  end
+
+  it "allows points to be deleted" do
+    @coords.delete(1)
+    expect(@coords.get_consolidated_data).to eql("1,2 5,6")
+  end
+
+  it "has a blank data creator" do
+    data = RubyPager::Coords.blank_data()
+    expect(data).to eql("")
+  end
+
 end
 
 RSpec.describe RubyPager::Coord, :type => :aruba do
@@ -135,6 +212,14 @@ RSpec.describe RubyPager::Coord, :type => :aruba do
     @coord.x=2
     @coord.y=3
     expect(@coord.x).to eql(2) and expect(@coord.y).to eql(3)
+  end
+  it "allow to update the id values" do
+    @coord.id=100
+    expect(@coord.id).to eql(100)
+  end
+
+  it "throws exception when id is updated with negative value " do
+    expect{@coord.id=-2}.to raise_error(StandardError)
   end
 
   it "throws exception when X coord is updated with negative value " do

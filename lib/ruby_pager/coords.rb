@@ -24,9 +24,19 @@ module RubyPager
 
     def push(ex_coord)
       raise(ArgumentError, "Got passed a non coord object") if ex_coord.class != RubyPager::Coord
+      ex_coord.id=@points.size
       @points.push(ex_coord)
     end
 
+    def delete(ex_delete_index)
+      @points.delete_at(ex_delete_index)
+      review_points_index()
+    end
+
+    def self.blank_data
+      res = ""
+      return res
+    end
     private
 
     def load_points()
@@ -37,7 +47,15 @@ module RubyPager
     end
 
     def consolidate_data
+      @data=""
+      @points.each {|point|
+        @data+=" " if @data.size() > 0
+        @data+= point.get_consolidated_data}
+    end
 
+    def review_points_index
+      @points.each_with_index {|point,index |
+        point.id=index}
     end
 
   end
