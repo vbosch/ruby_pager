@@ -2,7 +2,7 @@
 module RubyPager
 
   class Text_Region
-    attr_reader :id, :custom
+    attr_reader :id, :index, :custom
     def initialize(ex_index, ex_data)
       @data=ex_data
       @index=ex_index
@@ -10,18 +10,21 @@ module RubyPager
       @custom=@data["@custom"]
       @text_lines=Hash.new
       load_text_lines()
+      load_contour()
     end
 
     def size
       return @text_lines.size
     end
 
-    def id= (region_id)
-
+    def id= (ex_id)
+      raise(ArgumentError, "Got passed a non string object") if ex_id.class != String
+      @id=ex_id
     end
-    
-    def index= (region_id)
 
+    def index= (ex_index)
+      raise(ArgumentError, "Got passed a negative value to update the index") if ex_index.to_i < 0
+      @index=ex_index.to_i
     end
 
     def [](ex_key)
@@ -57,6 +60,10 @@ module RubyPager
       line_array.each_with_index {|text_line,index |
         @text_lines[text_line["@id"]]=Text_Line.new(index,text_line)
       }
+    end
+
+    def load_contour()
+      @contour = Coords.new(@data["Coords"]["@points"]);
     end
 
     def consolidate_data

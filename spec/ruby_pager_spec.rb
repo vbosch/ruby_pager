@@ -70,6 +70,24 @@ RSpec.describe RubyPager::Text_Region , :type => :aruba do
     expect(@region.id).not_to be_nil
   end
 
+  it "allows to change the actual region id" do
+    @region.id = "region_x"
+    expect(@region.id).to eql("region_x")
+  end
+
+  it "throws exception when something other than a string is used to update the id" do
+    expect{@region.id = 100}.to raise_error(ArgumentError)
+  end
+
+  it "allows to change the order index" do
+    @region.index = 100
+    expect(@region.index).to eql(100)
+  end
+
+  it "throws exception when something other than a positive integer is used to update the order index" do
+    expect{@region.index = -1}.to raise_error(ArgumentError)
+  end
+
   it "allows access to the custom field" do
     expect(@region.custom).not_to be_nil
 
@@ -90,6 +108,7 @@ RSpec.describe RubyPager::Text_Region , :type => :aruba do
     @region.push(line)
     expect(@region.size).to eql(past_size+1) and expect(@region.has_line? "line_test").to eql(true)
   end
+
   it "throws exception when something other a text line is tried to be added to the region" do
     expect{@region.push(1)}.to raise_error(ArgumentError)
   end
@@ -98,8 +117,9 @@ RSpec.describe RubyPager::Text_Region , :type => :aruba do
     line = RubyPager::Text_Line.new(0,RubyPager::Text_Line.blank_data)
     line.id="line_test"
     @region.push(line)
+    @region.id="region_test"
     data = @region.get_consolidated_data
-    expect(data["Coords"]["@points"]).to eql("16,2 305,0 305,112 16,112 7,8") and expect(data["TextEquiv"]["Unicode"]).to eql("hola") and expect(data["@id"]).to eql("line_x")
+    expect(data["@id"]).to eql("region_test") and expect(data["TextLine"].last["@id"]).to eql("line_test")
   end
 
 end
@@ -116,6 +136,10 @@ RSpec.describe RubyPager::Text_Line , :type => :aruba do
   it "allows to change the actual line id" do
     @line.id = "line_x"
     expect(@line.id).to eql("line_x")
+  end
+
+  it "throws exception when something other than a string is used to update the id" do
+    expect{@line.id = 100}.to raise_error(ArgumentError)
   end
 
   it "allows to change the order index" do
@@ -139,7 +163,6 @@ RSpec.describe RubyPager::Text_Line , :type => :aruba do
   it "throws exception when something other than a string is used to update the text" do
     expect{@line.text = 2}.to raise_error(ArgumentError)
   end
-
 
   it "allows access to its contour" do
     expect(@line.contour).not_to be_nil
