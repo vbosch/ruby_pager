@@ -2,7 +2,7 @@
 module RubyPager
 
   class Text_Region
-    attr_reader :id, :index, :custom
+    attr_reader :id, :index, :custom, :contour
     def initialize(ex_index, ex_data)
       @data=ex_data
       @index=ex_index
@@ -51,6 +51,16 @@ module RubyPager
     def get_consolidated_data
       consolidate_data()
       return @data
+    end
+
+    def self.blank_data
+      res=Hash.new
+      res["@id"]=""
+      res["@custom"]=""
+      res["TextLine"]=Array.new
+      res["Coords"]=Hash.new
+      res["Coords"]["@points"]=Coords.blank_data
+      return res
     end
 
     private

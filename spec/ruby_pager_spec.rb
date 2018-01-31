@@ -44,6 +44,10 @@ RSpec.describe RubyPager::Page , :type => :aruba do
     expect(@page.file_name).to eql(test_file)
   end
 
+  it "allows access to the metadata" do
+    expect(@page.metadata.class).to eql(RubyPager::Metadata)
+  end
+
   it "gives access to the text regions inside" do
     expect(@page["TextRegion_1507554599035_50"]).not_to be_nil
   end
@@ -60,6 +64,50 @@ RSpec.describe RubyPager::Page , :type => :aruba do
   end
 
 end
+
+
+RSpec.describe RubyPager::Metadata , :type => :aruba do
+  let(:test_file){ './test.xml'}
+  before{@metadata=RubyPager::Page.new(test_file).metadata}
+  it "allows access to the creator field" do
+    expect(@metadata.creator).to eql("V. Bosch")
+  end
+
+  it "allows to change the actual creator field" do
+    @metadata.creator = "Pepe"
+    expect(@metadata.creator).to eql("Pepe")
+  end
+
+  it "throws exception when something other than a string is used to update the creator field" do
+    expect{@metadata.creator = 100}.to raise_error(ArgumentError)
+  end
+  it "allows access to the created field" do
+    expect(@metadata.created).to eql("2016-05-20T13:51:57")
+  end
+  it "allows to change the actual created field" do
+    @metadata.created = DateTime.parse("2017-10-25T08:04:56")
+    expect(@metadata.created).to eql("2017-10-25T08:04:56")
+  end
+  it "allows access to the last changed field" do
+    expect(@metadata.lastchange).to eql("2017-10-25T08:04:38")
+  end
+  it "allows to change the actual last changed field" do
+    @metadata.lastchange = DateTime.parse("2021-10-25T08:04:56")
+    expect(@metadata.lastchange).to eql("2021-10-25T08:04:56")
+  end
+  it "has a blank data creator" do
+    data = RubyPager::Metadata.blank_data()
+    expect(data["Creator"]).to eql("") and expect(data["Created"]).to eql("") and expect(data["LastChange"]).to eql("")
+  end
+
+
+  it "consolidates correctly and gives back updated data in original format" do
+    @metadata.creator="Enrique Vidal"
+    data= @metadata.get_consolidated_data
+    expect(data["Creator"]).to eql("Enrique Vidal")
+  end
+end
+
 
 RSpec.describe RubyPager::Text_Region , :type => :aruba do
   let(:test_file){ './test.xml'}
@@ -93,6 +141,10 @@ RSpec.describe RubyPager::Text_Region , :type => :aruba do
 
   end
 
+  it "allows access to the region contour" do
+    expect(@region.contour.size).not_to be_nil
+  end
+
   it "allows access to the underlying text lines" do
     expect(@region["line_0"].id).to eql("line_0")
   end
@@ -120,6 +172,11 @@ RSpec.describe RubyPager::Text_Region , :type => :aruba do
     @region.id="region_test"
     data = @region.get_consolidated_data
     expect(data["@id"]).to eql("region_test") and expect(data["TextLine"].last["@id"]).to eql("line_test")
+  end
+
+  it "has a blank data creator" do
+    data = RubyPager::Text_Region.blank_data()
+    expect(data["Coords"]["@points"]).to eql("") and expect(data["@custom"]).to eql("") and expect(data["@id"]).to eql("") and expect(data["TextLine"].class).to eql(Array)
   end
 
 end
