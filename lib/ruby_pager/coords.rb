@@ -8,6 +8,10 @@ module RubyPager
       load_points()
     end
 
+    def self.blank
+      return Coords.new(0,Coords.blank_data)
+    end
+
     def size
       return @points.size
     end

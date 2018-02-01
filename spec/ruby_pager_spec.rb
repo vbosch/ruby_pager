@@ -38,7 +38,7 @@ end
 RSpec.describe RubyPager::Page , :type => :aruba do
   let(:test_file){ './test.xml'}
   let(:out_page_file){'./page.xml'}
-  before{@page=RubyPager::Page.new(test_file);}
+  before{@page=RubyPager::Page.load_from_xml(test_file);}
 
   it "allows access to file name" do
     expect(@page.file_name).to eql(test_file)
@@ -68,7 +68,7 @@ end
 
 RSpec.describe RubyPager::Metadata , :type => :aruba do
   let(:test_file){ './test.xml'}
-  before{@metadata=RubyPager::Page.new(test_file).metadata}
+  before{@metadata=RubyPager::Page.load_from_xml(test_file).metadata}
   it "allows access to the creator field" do
     expect(@metadata.creator).to eql("V. Bosch")
   end
@@ -112,7 +112,7 @@ end
 RSpec.describe RubyPager::Text_Region , :type => :aruba do
   let(:test_file){ './test.xml'}
   let(:out_page_file){'./page.xml'}
-  before{@region=RubyPager::Page.new(test_file)["TextRegion_1507554599035_50"];}
+  before{@region=RubyPager::Page.load_from_xml(test_file)["TextRegion_1507554599035_50"];}
 
   it "allows access to the text region id" do
     expect(@region.id).not_to be_nil
@@ -184,7 +184,7 @@ end
 RSpec.describe RubyPager::Text_Line , :type => :aruba do
   let(:test_file){ './test.xml'}
   let(:out_page_file){'./page.xml'}
-  before{@line=RubyPager::Page.new(test_file)["TextRegion_1507554599035_50"]["line_0"];}
+  before{@line=RubyPager::Page.load_from_xml(test_file)["TextRegion_1507554599035_50"]["line_0"];}
 
   it "allows access to the text line id" do
     expect(@line.id).not_to be_nil

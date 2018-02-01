@@ -13,6 +13,10 @@ module RubyPager
 
     end
 
+    def self.blank
+      return Text_Line.new(0,Text_Line.blank_data)
+    end
+
     def id= ex_id
       raise(ArgumentError, "Got passed a non string object") if ex_id.class != String
       @id=ex_id

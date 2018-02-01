@@ -13,6 +13,10 @@ module RubyPager
       load_contour()
     end
 
+    def self.blank
+      return Text_Region.new(0,Text_Region.blank_data)
+    end
+
     def size
       return @text_lines.size
     end
