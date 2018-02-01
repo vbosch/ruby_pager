@@ -7,6 +7,8 @@ require "ruby_pager/text_region"
 require "ruby_pager/text_line"
 require "ruby_pager/coords"
 require "ruby_pager/coord"
+require "ruby_pager/image"
+require "ruby_pager/application_logger"
 module RubyPager
   # Your code goes here...
 end

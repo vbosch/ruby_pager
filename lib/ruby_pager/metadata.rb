@@ -34,9 +34,9 @@ module RubyPager
 
     def self.blank_data
       res=Hash.new
-      res["Creator"]=""
-      res["Created"]=""
-      res["LastChange"]=""
+      res["Creator"]="Ruby Page"
+      res["Created"]=DateTime.now.strftime("%FT%T")
+      res["LastChange"]=DateTime.now.strftime("%FT%T")
       return res
     end
 

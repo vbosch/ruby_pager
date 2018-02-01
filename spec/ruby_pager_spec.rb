@@ -48,6 +48,14 @@ RSpec.describe RubyPager::Page , :type => :aruba do
     expect(@page.metadata.class).to eql(RubyPager::Metadata)
   end
 
+  it "allows access to the image data" do
+    expect(@page.image_filename).to eql("FRCHANJJ_JJ080_0019R_A.jpg") and expect(@page.image_width).to eql(3483) and expect(@page.image_height).to eql(4715)
+  end
+
+  it "allows access to the schema data" do
+    expect(@page.xmlns_xsi).not_to be_nil and expect(@page.xmlns).not_to be_nil and expect(@page.xsi_schemaLocation).not_to be_nil
+  end
+
   it "gives access to the text regions inside" do
     expect(@page["TextRegion_1507554599035_50"]).not_to be_nil
   end
@@ -63,6 +71,14 @@ RSpec.describe RubyPager::Page , :type => :aruba do
     expect(@page.size).to eql(external_count)
   end
 
+  it "creates basic xml from image file" do
+    img_page = RubyPager::Page.create_from_image("test.jpg")
+    check=File.exists?("image.xml")
+    img_page.create_full_page_region("ruby_region")
+    external_count=`cat image.xml | grep '<TextRegion' | wc -l`.to_i
+    img_page.save("image.xml")
+    expect(check).to eql(true) and expect(external_count).to eql(1)
+  end
 end
 
 
@@ -97,7 +113,7 @@ RSpec.describe RubyPager::Metadata , :type => :aruba do
   end
   it "has a blank data creator" do
     data = RubyPager::Metadata.blank_data()
-    expect(data["Creator"]).to eql("") and expect(data["Created"]).to eql("") and expect(data["LastChange"]).to eql("")
+    expect(data["Creator"]).to eql("Ruby Page") and expect(data["Created"]).to eql(DateTime.now.strftime("%FT%T")) and expect(data["LastChange"]).to eql(DateTime.now.strftime("%FT%T"))
   end
 
 
@@ -106,6 +122,7 @@ RSpec.describe RubyPager::Metadata , :type => :aruba do
     data= @metadata.get_consolidated_data
     expect(data["Creator"]).to eql("Enrique Vidal")
   end
+
 end
 
 

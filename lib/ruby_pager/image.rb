@@ -1,13 +1,10 @@
 require 'rmagick'
-require 'set'
-require 'ap'
-#require 'ruby-debug'
-require_relative '../lib/extendmatrix2'
-require_relative '../lib/application_logger'
+#require 'set'
+#require 'ap'
 
 module Utils
   class Image
-    
+    attr_reader
     def initialize(ex_path)
       @logger = Utils::ApplicationLogger.instance
       @logger.level = Logger::INFO
@@ -21,15 +18,19 @@ module Utils
 #      @logger.info("Calculating normalized intensitiy histogram")
 #      @histogram = @intensity_matrix.to_normalized_histogram 
     end
-    
-    def image_rows
-      return @img.rows
+    def rows
+      @img.rows
     end
-    
-    def image_columns
-      return @image.columns
+
+    def columns
+      @img.columns
     end
-    
+
+
+    def display
+      @img.display
+    end
+
     def mean_of_region(from_x=@integral_image.row_size-1,from_y=@integral_image.column_size-1,region_height=@integral_image.row_size-1,region_width=@integral_image.column_size-1)
       #if no parameters are given the input variables get assigned the default values indicated in the above specification and hence return the mean of the whole image
       #raise "Region size provided exceeds the image boundaries" if from_y - region_width < 0 or from_x - region_height < 0
@@ -316,53 +317,6 @@ module Utils
       @img.display
       to_file(output_file,@img)
     end
-
-	def draw_histogram(histogram,output_file,type)
-	
-      @logger.info("Drawing histogram")
-
-      img2 = Magick::Image.new(@img.columns,@img.rows) {self.background_color = 'white'}
-      
-      colors=["red","seagreen","royalblue","purple","sienna","steelblue","khaki","lightcoral","olive"]	  
-	  colors=["royalblue"]
-	  gc = Magick::Draw.new 
-        gc.stroke_width = 50
-        gc.fill_opacity(1.0)
-        gc.fill=colors.rotate![0]
-        histogram.each_line do |row,columns |  
-# histogram.each_derivate do |row,columns |       
-    		columns.each{|limits| gc.rectangle(limits[0]+@increment,row,(limits[0] != limits[1] ? (1.2*(limits[1]-limits[0])+limits[1]) : limits[1])+@increment, row+2)} if row % 5 == 0	
-#columns.each{|limits| gc.line(limits[1]-2+@increment,row,limits[1]+@increment, row)}
-        end
-        gc.draw(@img)      
-=begin      
-        gc = Magick::Draw.new
-        gc.stroke_width = 1
-        gc.fill_opacity(1.0)
-        gc.fill=colors.rotate![0]
-        histogram.each_line do |row,columns |       
-          columns.each{|limits| gc.line(limits[1]-2,row-1,limits[1], row-1)}
-          columns.each{|limits| gc.line(limits[1]-10,row,limits[1], row)}
-        end
-        gc.draw(@img)      
-=end
-
-=begin
-		if type == "derivate"
-        	gc = Magick::Draw.new 
-        	gc.stroke_width = 1
-        	gc.fill_opacity(1.0)
-#gc.fill=colors.rotate![0]
-        	gc.fill="black"
-        	histogram.each_derivate do |row,columns |       
-    			columns.each{|limits| gc.line(limits[0]+@increment,row,limits[1]+@increment, row)} if row % 5 == 0	
-#    		columns.each{|limits| gc.line(limits[1]-2+@increment,row,limits[1]+@increment, row)}
-        	end
-        	gc.draw(@img_aux)
-    	end
-=end
-      to_file(output_file,@img)
-	end
 
 	private :niblack_binarization , :otsu_binarization, :simple_binarization, :apply_threshold, :calculate_integral_images
   end
