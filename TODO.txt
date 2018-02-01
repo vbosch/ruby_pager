@@ -1,4 +1,5 @@
 
 https://github.com/cedlemo/ruby-gtk3-tutorial
+http://iridakos.com/tutorials/2018/01/25/creating-a-gtk-todo-application-with-ruby
 http://bundler.io/v1.12/guides/creating_gem.html
 https://relishapp.com/rspec/rspec-expectations/v/3-7/docs/built-in-matchers
