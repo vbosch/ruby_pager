@@ -2,6 +2,7 @@ require 'aruba/rspec'
 
 RSpec.describe RubyPager::XML , :type => :aruba do
   let(:test_file){ './test.xml'}
+  let(:imaginary_file){ './doesnotexist.xml'}
   let(:out_file){ './output.xml'}
   before{@data=RubyPager::XML.load(test_file);RubyPager::XML.save(out_file,@data);}
   subject{@data}
@@ -10,7 +11,7 @@ RSpec.describe RubyPager::XML , :type => :aruba do
   end
 
   it "checks file exists" do
-    expect(RubyPager::XML.exists?(test_file)).to eql(true)
+    expect(RubyPager::XML.exists?(test_file)).to eql(true) and expect(RubyPager::XML.exists?(imaginary_file)).to eql(false) and expect(RubyPager::XML.exists?("nothing.txt")).to eql(false)
   end
 
   it "provides hash of loaded file" do
@@ -166,6 +167,11 @@ RSpec.describe RubyPager::Text_Region , :type => :aruba do
     expect(@region["line_0"].id).to eql("line_0")
   end
 
+  it "allows to clear all lines in the region" do
+    @region.clear_text_lines
+    expect(@region.size).to eql(0)
+  end
+
   it "allows to ask for the lines it contains by id" do
     expect(@region.has_line? "line_test").to eql(false) and expect(@region.has_line? "line_0").to eql(true)
   end
@@ -194,6 +200,11 @@ RSpec.describe RubyPager::Text_Region , :type => :aruba do
   it "has a blank data creator" do
     data = RubyPager::Text_Region.blank_data()
     expect(data["Coords"]["@points"]).to eql("") and expect(data["@custom"]).to eql("") and expect(data["@id"]).to eql("") and expect(data["TextLine"].class).to eql(Array)
+  end
+
+  it "has a blank object creator" do
+    blank_tr=RubyPager::Text_Region.blank
+    expect(blank_tr.index).to eql(0) and expect(blank_tr.id).to eql("") and expect(blank_tr.custom).to eql("") and expect(blank_tr.size).to eql(0)
   end
 
 end
@@ -257,6 +268,11 @@ RSpec.describe RubyPager::Text_Line , :type => :aruba do
     expect(data["Coords"]["@points"]).to eql("") and expect(data["TextEquiv"]["Unicode"]).to eql("") and expect(data["@id"]).to eql("")
   end
 
+  it "has a blank object creator" do
+    blank_tl=RubyPager::Text_Line.blank
+    expect(blank_tl.index).to eql(0) and expect(blank_tl.id).to eql("") and expect(blank_tl.text).to eql("")
+  end
+
 end
 
 RSpec.describe RubyPager::Coords, :type => :aruba do
@@ -295,6 +311,11 @@ RSpec.describe RubyPager::Coords, :type => :aruba do
   it "has a blank data creator" do
     data = RubyPager::Coords.blank_data()
     expect(data).to eql("")
+  end
+
+  it "has a blank object creator" do
+    blank_coords=RubyPager::Coords.blank
+    expect(blank_coords.size).to eql(0) and expect(blank_coords.get_consolidated_data).to eql("")
   end
 
 end

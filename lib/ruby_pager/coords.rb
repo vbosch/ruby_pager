@@ -9,7 +9,7 @@ module RubyPager
     end
 
     def self.blank
-      return Coords.new(0,Coords.blank_data)
+      return Coords.new(Coords.blank_data)
     end
 
     def size

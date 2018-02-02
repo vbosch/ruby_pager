@@ -17,7 +17,7 @@ module RubyPager
       return Text_Region.new(0,Text_Region.blank_data)
     end
 
-    def size
+  def size
       return @text_lines.size
     end
 
