@@ -4,6 +4,8 @@ module RubyPager
   class Page
     attr_reader :file_name, :metadata, :image_filename, :image_height, :image_width, :xmlns, :xmlns_xsi, :xsi_schemaLocation
     def initialize(ex_file_name,ex_data)
+      @logger = Utils::ApplicationLogger.instance
+      @logger.info("Loading data from XML #{ex_file_name}")
       @file_name=ex_file_name
       @data=ex_data
       @text_regions=Hash.new
@@ -15,11 +17,15 @@ module RubyPager
     end
 
     def self.load_from_xml(ex_file_name)
+      logger = Utils::ApplicationLogger.instance
+      logger.info("Loading XML #{ex_file_name}")
       data=XML.load(ex_file_name)
       return Page.new(ex_file_name,data)
     end
 
     def self.create_from_image(ex_image_name)
+      logger = Utils::ApplicationLogger.instance
+      logger.info("Generating XML for image #{ex_image_name}")
       image=Utils::Image.new(ex_image_name)
       data=self.blank_data
       data["PcGts"]["Page"]["@imageFilename"]=ex_image_name
@@ -29,6 +35,7 @@ module RubyPager
     end
 
     def create_full_page_region(region_id)
+      @logger.info("Creating full page region #{region_id}")
       data=Text_Region.blank_data
       raise(ArgumentError, "Region id #{region_id} is already in use") if @text_regions.has_key? region_id
       data["Coords"]["@points"]="0,0 0,#{image_width} #{image_height},#{image_width} #{image_height},0"
@@ -37,6 +44,7 @@ module RubyPager
     end
 
     def save(ex_save_name=@file_name)
+      @logger.info("Creating page object #{@file_name} to #{ex_save_name}")
       consolidate_data
       #ap @data
       XML.save(ex_save_name, @data)
@@ -61,6 +69,8 @@ module RubyPager
     end
 
     def self.blank_data
+      logger = Utils::ApplicationLogger.instance
+      logger.info("Creating blank XML data")
       res=Hash.new
       res["PcGts"]=Hash.new
       res["PcGts"]["Metadata"]=Metadata.blank_data

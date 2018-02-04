@@ -1,5 +1,8 @@
 require 'aruba/rspec'
 
+logger = Utils::ApplicationLogger.instance
+logger.level = Logger::WARN
+
 RSpec.describe RubyPager::XML , :type => :aruba do
   let(:test_file){ './test.xml'}
   let(:imaginary_file){ './doesnotexist.xml'}
@@ -76,8 +79,8 @@ RSpec.describe RubyPager::Page , :type => :aruba do
     img_page = RubyPager::Page.create_from_image("test.jpg")
     check=File.exists?("image.xml")
     img_page.create_full_page_region("ruby_region")
-    external_count=`cat image.xml | grep '<TextRegion' | wc -l`.to_i
     img_page.save("image.xml")
+    external_count=`cat image.xml | grep '<TextRegion' | wc -l`.to_i
     expect(check).to eql(true) and expect(external_count).to eql(1)
   end
 end

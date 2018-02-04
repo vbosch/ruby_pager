@@ -40,16 +40,8 @@ module RubyPager
             attr[new_label]=value
           end
         }
-        #attr["xmlns_xsi"] = data.fetch('@xmlns:xsi', {})
-        #attr["xmlns"] = data.fetch('@xmlns', {})
-        #attr["xsi_schemaLocation"] = data.fetch('@xsi:schemaLocation', {})
-        #attr["pcGtsId"] = data.fetch('@pcGtsId', {})
         builder = Nokogiri::XML::Builder.new(opt) do |xml|
           xml.send(root,attr) {
-            #data.delete('@xmlns:xsi')
-            #data.delete('@xmlns')
-            #data.delete('@xsi:schemaLocation')
-            #data.delete('@pcGtsId')
             data.each{|label,value|
               if(label.start_with?("@")) then
                 data.delete(label)
@@ -72,15 +64,12 @@ module RubyPager
             end
           }
 
-          # also passing 'text' as a key makes nokogiri do the same thing
           parent.send(label,attr) {
             value.each{|vlabel,vvalue|
               if(vlabel.start_with?("@")) then
                 value.delete(vlabel)
               end
             }
-            #ap value
-            #sleep(10)
             generate_xml(value, parent)
           }
 

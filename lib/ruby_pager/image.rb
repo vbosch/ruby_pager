@@ -4,20 +4,28 @@ require 'rmagick'
 
 module Utils
   class Image
-    attr_reader
     def initialize(ex_path)
       @logger = Utils::ApplicationLogger.instance
-      @logger.level = Logger::INFO
       @image_path = ex_path
       @logger.info("Loading image")
       @img = Magick::ImageList.new(@image_path)
       @increment = 200
       @img_aux = Magick::Image.new(@img.columns+@increment,@img.rows){ self.background_color = "white" }
-#      @intensity_matrix = obtain_image_intensity_matrix #obtains the gray channel of the image
-#  calculate_integral_images #generates the normal and sum of squares integral images
-#      @logger.info("Calculating normalized intensitiy histogram")
-#      @histogram = @intensity_matrix.to_normalized_histogram 
+      @intensity_calculated = false
+      @integral_calculated = false
     end
+
+    def calculate_intensity_matrix
+      unless @intensity_calculated
+        @logger.info("Calculating intensity matrix")
+        @intensity_matrix = obtain_image_intensity_matrix #obtains the gray channel of the image
+        @logger.info("Calculating normalized intensity histogram")
+        @histogram = @intensity_matrix.to_normalized_histogram
+        @intensity_calculated=true
+      end
+    end
+
+
     def rows
       @img.rows
     end
@@ -28,7 +36,7 @@ module Utils
 
 
     def display
-      @img.display
+      @img.display {server_name = @image_path; delay=1}
     end
 
     def mean_of_region(from_x=@integral_image.row_size-1,from_y=@integral_image.column_size-1,region_height=@integral_image.row_size-1,region_width=@integral_image.column_size-1)
@@ -111,6 +119,8 @@ module Utils
     end
     
     def calculate_integral_images(intensity_matrix=@intensity_matrix)
+      if not @integral_calculated
+      calculate_intensity_matrix unless @intensity_calculated
       @logger.info("Calculating integral images")
       res = intensity_matrix.clone
       res2= intensity_matrix.clone
@@ -127,8 +137,10 @@ module Utils
           res2[x,y]+=res2[x-1,y]
         end
       end
+      @integral_calculated=true
       @sum_of_squares_intensity_matrix = res2
       @integral_image = res
+      end
     end
     
     def apply_threshold(threshold=0.5,intensity_matrix=@intensity_matrix)
@@ -217,6 +229,7 @@ module Utils
     
     def binarize!(method,*params)
       @logger.info("Performing #{method} binarization on image")
+      calculate_intensity_matrix
       @intensity_matrix = send(method,@intensity_matrix,*params)
       @logger.info("IMAGE CHANGED!! Recalculating internal representation")
       @img=intensity_matrix_to_image(@intensity_matrix)

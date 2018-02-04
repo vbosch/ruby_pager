@@ -1,8 +1,6 @@
 require 'ap'
 #require 'ruby-debug'
 
-require_relative '../lib/application_logger'
-
 
 module Utils
   class Histogram
