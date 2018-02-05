@@ -2,13 +2,47 @@
 
 require "bundler/setup"
 require "ruby_pager"
+require "trollop"
+require "ap"
 
-# You can add fixtures and/or initialization code here to make experimenting
-# with your gem easier. You can also use a different console, if you like.
 
-# (If you use this, don't forget to add pry to your Gemfile!)
-# require "pry"
-# Pry.start
+opts = Trollop::options do
+  version "page_create 0.0.1 (c) 2018 Vicente Bosch Campos"
+  banner <<-EOS
+page_create is a command tool that creates Page format xmls as per defined input
+Usage:
+	generate_htk_language_model [options]
+	where [options] are:
+  EOS
+  opt :mode ,"operation mode for the page_create tool two modes exist data or image. Data creates a simple xml from the data provide while image takes the information from the image file", :type=> :string, :default => "image"
+  opt :image_file, "image file used to collect data (image mode) or just used to fill the image parameter in the xml (data mode)", :type => :string, :default => "input.jpg"
+  opt :output_file, "output file where the generated xml page will be saved", :type => :string, :default => "output.xml"
+  opt :creator, "name used to fill the creator parameter in the generated xml (image/page mode)", :type => :string, :default => "page_create"
+  opt :width, "Image width used for the xml generation and full region creation (data mode)", :type => :int , :default => 0
+  opt :height, "Image height used for the xml generation and full region creation (data mode)", :type => :int , :default => 0
+  opt :full, "Creates a full text region of the size of the image", :type=> :boolean  ,  :default => false
+  opt :region_name, "Label to be used for the full text region created", :type=>:string, :default => "region_1"
+end
 
-require "irb"
-IRB.start(__FILE__)
+Trollop::die :mode, "Operation mode was not selected" unless opts[:mode]
+Trollop::die :mode, "Operation mode selected must be either data or image" unless opts[:mode]=="data" or opts[:mode]=="image"
+Trollop::die :image_file, "Image file name was not indicated" unless opts[:image_file]
+Trollop::die :image_file, "Indicated image file does not exist which is required in image mode" unless File.exist?(opts[:image_file]) or opts[:mode]=="data"
+Trollop::die :creator, "Creator name was not indicated" unless opts[:creator]
+Trollop::die :width, "Width parameter can not be a negative value" unless opts[:width] >= 0
+Trollop::die :height, "Height parameter can not be a negative value" unless opts[:height] >= 0
+Trollop::die :region_name, "Region name can't be empty if the creation of the full text region was selected" if opts[:full] and opts[:region_name].empty?
+
+
+if opts[:mode] == "image"
+  img_page = RubyPager::Page.create_from_image(opts[:image_file])
+  img_page.metadata.creator=opts[:creator]
+  img_page.create_full_page_region(opts[:region_name]) if opts[:full]
+  img_page.save(opts[:output_file])
+else
+  data_page = RubyPager::Page.create_from_image(opts[:image_file])
+  data_page.metadata.creator=opts[:creator]
+  data_page.create_full_page_region(opts[:region_name]) if opts[:full]
+  data_page.save(opts[:output_file])
+
+end

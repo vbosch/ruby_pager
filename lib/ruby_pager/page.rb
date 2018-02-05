@@ -34,6 +34,11 @@ module RubyPager
       return Page.new(ex_image_name,data)
     end
 
+    def self.blank(ex_image_name)
+      data=self.blank_data
+      return Page.new(ex_image_name,data)
+    end
+
     def create_full_page_region(region_id)
       @logger.info("Creating full page region #{region_id}")
       data=Text_Region.blank_data
