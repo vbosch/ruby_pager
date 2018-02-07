@@ -40,8 +40,11 @@ if opts[:mode] == "image"
   img_page.create_full_page_region(opts[:region_name]) if opts[:full]
   img_page.save(opts[:output_file])
 else
-  data_page = RubyPager::Page.create_from_image(opts[:image_file])
+  data_page = RubyPager::Page.blank(opts[:image_file])
   data_page.metadata.creator=opts[:creator]
+  data_page.image_data.file_name=opts[:image_file]
+  data_page.image_data.width=opts[:width]
+  data_page.image_data.height=opts[:height]
   data_page.create_full_page_region(opts[:region_name]) if opts[:full]
   data_page.save(opts[:output_file])
 

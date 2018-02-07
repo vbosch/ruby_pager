@@ -2,7 +2,7 @@
 module RubyPager
 
   class Page
-    attr_reader :file_name, :metadata, :image_filename, :image_height, :image_width, :xmlns, :xmlns_xsi, :xsi_schemaLocation
+    attr_reader :file_name, :metadata, :image_data, :xmlns, :xmlns_xsi, :xsi_schemaLocation
     def initialize(ex_file_name,ex_data)
       @logger = Utils::ApplicationLogger.instance
       @logger.info("Loading data from XML #{ex_file_name}")
@@ -43,7 +43,7 @@ module RubyPager
       @logger.info("Creating full page region #{region_id}")
       data=Text_Region.blank_data
       raise(ArgumentError, "Region id #{region_id} is already in use") if @text_regions.has_key? region_id
-      data["Coords"]["@points"]="0,0 0,#{image_width} #{image_height},#{image_width} #{image_height},0"
+      data["Coords"]["@points"]="0,0 0,#{@image_data.width} #{@image_data.height},#{@image_data.width} #{@image_data.height},0"
       data["@id"]=region_id
       push(Text_Region.new(0,data))
     end
@@ -109,9 +109,7 @@ module RubyPager
     end
 
     def load_xml_image_info
-      @image_filename= @data["PcGts"]["Page"]["@imageFilename"]
-      @image_width= @data["PcGts"]["Page"]["@imageWidth"].to_i
-      @image_height= @data["PcGts"]["Page"]["@imageHeight"].to_i
+      @image_data = Image_Data.new(@data["PcGts"]["Page"])
     end
 
     def consolidate_data
@@ -121,9 +119,10 @@ module RubyPager
       @data["PcGts"]["@xsi:schemaLocation"]=@xsi_schemaLocation
       @data["PcGts"]["@pcGtsId"]=@pc_gts_id
       @data["PcGts"]["Page"]["ReadingOrder"]=@reading_order.get_consolidated_data
-      @data["PcGts"]["Page"]["@imageFilename"]=@image_filename
-      @data["PcGts"]["Page"]["@imageWidth"]=@image_width
-      @data["PcGts"]["Page"]["@imageHeight"]=@image_height
+      img_cons = @image_data.get_consolidated_data
+      @data["PcGts"]["Page"]["@imageFilename"]=img_cons["@imageFilename"]
+      @data["PcGts"]["Page"]["@imageWidth"]=img_cons["@imageWidth"]
+      @data["PcGts"]["Page"]["@imageHeight"]=img_cons["@imageHeight"]
       @data["PcGts"]["Page"]["TextRegion"]=Array.new
       @text_regions.values.each {|text_region|
         @data["PcGts"]["Page"]["TextRegion"].push(text_region.get_consolidated_data)

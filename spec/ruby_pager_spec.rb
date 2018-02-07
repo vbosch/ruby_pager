@@ -53,7 +53,7 @@ RSpec.describe RubyPager::Page , :type => :aruba do
   end
 
   it "allows access to the image data" do
-    expect(@page.image_filename).to eql("FRCHANJJ_JJ080_0019R_A.jpg") and expect(@page.image_width).to eql(3483) and expect(@page.image_height).to eql(4715)
+    expect(@page.image_data.file_name).to eql("FRCHANJJ_JJ080_0019R_A.jpg") and expect(@page.image_data.width).to eql(3483) and expect(@page.image_data.height).to eql(4715)
   end
 
   it "allows access to the schema data" do
@@ -126,6 +126,66 @@ RSpec.describe RubyPager::Metadata , :type => :aruba do
     data= @metadata.get_consolidated_data
     expect(data["Creator"]).to eql("Enrique Vidal")
   end
+
+end
+RSpec.describe RubyPager::Metadata , :type => :aruba do
+  let(:test_file){ './test.xml'}
+  before{@image_data=RubyPager::Page.load_from_xml(test_file).image_data}
+  it "allows access to the image file name field" do
+    expect(@image_data.file_name).to eql("FRCHANJJ_JJ080_0019R_A.jpg")
+  end
+  it "allows access to the image height and width" do
+    expect(@image_data.width).to eql(3483) and expect(@image_data.height).to eql(4715)
+  end
+
+  it "allows to change the actual file name field" do
+    @image_data.file_name = "Pepe.jpg"
+    expect(@image_data.file_name).to eql("Pepe.jpg")
+  end
+
+  it "throws exception when something other than a string is used to update the file name field" do
+    expect{@image_data.file_name = 100}.to raise_error(ArgumentError)
+  end
+
+  it "allows to change the actual width field" do
+    @image_data.width = 3
+    expect(@image_data.width).to eql(3)
+  end
+
+  it "throws exception when something other than a Fixnum is used to update the width field" do
+    expect{@image_data.width = "3"}.to raise_error(ArgumentError)
+  end
+
+  it "throws exception when a negative value is used to update the width field" do
+    expect{@image_data.width = -3}.to raise_error(ArgumentError)
+  end
+
+  it "allows to change the actual height field" do
+    @image_data.height = 5
+    expect(@image_data.height).to eql(5)
+  end
+
+  it "throws exception when something other than a Fixnum is used to update the height field" do
+    expect{@image_data.height = "5"}.to raise_error(ArgumentError)
+  end
+
+  it "throws exception when a negative value is used to update the height field" do
+    expect{@image_data.height = -3}.to raise_error(ArgumentError)
+  end
+
+  it "has a blank data creator" do
+    data = RubyPager::Image_Data.blank_data()
+    expect(data["@imageFilename"]).to eql("") and expect(data["@imageWidth"]).to eql("0") and expect(data["@imageHeight"]).to eql("0")
+  end
+
+  it "consolidates correctly and gives back updated data in original format" do
+    @image_data.file_name="evidal.jpg"
+    @image_data.width = 3
+    @image_data.height = 5
+    data= @image_data.get_consolidated_data
+    expect(data["@imageFilename"]).to eql("evidal.jpg") and expect(data["@imageWidth"]).to eql("3") and expect(data["@imageHeight"]).to eql("5")
+  end
+
 
 end
 
