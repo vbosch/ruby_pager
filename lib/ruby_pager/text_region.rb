@@ -70,10 +70,12 @@ module RubyPager
     private
 
     def load_text_lines()
-      line_array=@data["TextLine"]
-      line_array.each_with_index {|text_line,index |
-        @text_lines[text_line["@id"]]=Text_Line.new(index,text_line)
-      }
+      if @data["TextLine"]
+        line_array=@data["TextLine"]
+        line_array.each_with_index {|text_line,index |
+          @text_lines[text_line["@id"]]=Text_Line.new(index,text_line)
+        }
+      end
     end
 
     def load_contour()
@@ -83,7 +85,8 @@ module RubyPager
     def consolidate_data
       @data["@custom"]=@custom
       @data["@id"]=@id
-      @data["TextLine"].clear
+      @data["Coords"]["@points"]=@contour.get_consolidated_data
+      @data["TextLine"].clear if @data["TextLine"]
       @text_lines.values.each {|text_line|
         @data["TextLine"].push(text_line.get_consolidated_data)
       }

@@ -49,9 +49,8 @@ module RubyPager
     end
 
     def save(ex_save_name=@file_name)
-      @logger.info("Creating page object #{@file_name} to #{ex_save_name}")
+      @logger.info("Saving page object #{@file_name} to #{ex_save_name}")
       consolidate_data
-      #ap @data
       XML.save(ex_save_name, @data)
     end
 
@@ -61,11 +60,23 @@ module RubyPager
       return @text_regions[ex_key]
     end
 
+    def has_region?(ex_region_id)
+      return @text_regions.has_key? ex_region_id
+    end
+
+    def delete(ex_region_id)
+      if has_region? ex_region_id
+      @logger.info("Deleting text region #{ex_region_id}")
+        @text_regions.delete(ex_region_id)
+        review_regions_index()
+      end
+      raise(ArgumentError, "Region id #{ex_region_id} does not exist so it can not be deleted") unless @text_regions.has_key? ex_region_id
+    end
+
     def push(ex_text_region)
       raise(ArgumentError, "Got passed a non text region object") if ex_text_region.class != RubyPager::Text_Region
-      raise(ArgumentError, "Region id #{region_id} is already in use") if @text_regions.has_key? ex_text_region.id
+      raise(ArgumentError, "Region id #{ex_text_region.id} is already in use") if @text_regions.has_key? ex_text_region.id
       ex_text_region.index=@text_regions.size
-      ap @text_regions.size
       @text_regions[ex_text_region.id]=ex_text_region
     end
 
@@ -94,11 +105,29 @@ module RubyPager
 
     private
 
-    def load_text_regions
-      region_array= @data["PcGts"]["Page"]["TextRegion"]
-      region_array.each_with_index {|text_region,index |
-        @text_regions[text_region["@id"]]=Text_Region.new(index,text_region)
+    def review_regions_index
+      index =0
+      @text_regions.values.each {|region|
+        region.index=index
+        index+=1
       }
+    end
+
+    def load_text_regions
+      if @data["PcGts"]["Page"]["TextRegion"]
+        if @data["PcGts"]["Page"]["TextRegion"].class == Array
+          region_array= @data["PcGts"]["Page"]["TextRegion"]
+          ap region_array
+          region_array.each_with_index {|text_region,index |
+            ap text_region
+            @text_regions[text_region["@id"]]=Text_Region.new(index,text_region)
+          }
+        end
+        if @data["PcGts"]["Page"]["TextRegion"].class == Hash
+          text_region= @data["PcGts"]["Page"]["TextRegion"]
+          @text_regions[text_region["@id"]]=Text_Region.new(0,text_region)
+        end
+      end
     end
 
     def load_xml_schema_data

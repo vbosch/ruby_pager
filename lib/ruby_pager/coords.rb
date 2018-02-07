@@ -32,6 +32,16 @@ module RubyPager
       @points.push(ex_coord)
     end
 
+    def clear
+      @points.clear
+    end
+
+    def reload(ex_coord_string)
+      clear
+      @data=ex_coord_string
+      load_points
+    end
+
     def delete(ex_delete_index)
       @points.delete_at(ex_delete_index)
       review_points_index()

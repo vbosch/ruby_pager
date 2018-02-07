@@ -75,6 +75,11 @@ RSpec.describe RubyPager::Page , :type => :aruba do
     expect(@page.size).to eql(external_count)
   end
 
+  it "has a blank data creator" do
+    blank_page = RubyPager::Page.blank("blank_test.jpg")
+    expect(blank_page.metadata.creator).to eql("Ruby Page")
+  end
+
   it "creates basic xml from image file" do
     img_page = RubyPager::Page.create_from_image("test.jpg")
     check=File.exists?("image.xml")
