@@ -133,7 +133,7 @@ RSpec.describe RubyPager::Metadata , :type => :aruba do
   end
 
 end
-RSpec.describe RubyPager::Metadata , :type => :aruba do
+RSpec.describe RubyPager::Image_Data , :type => :aruba do
   let(:test_file){ './test.xml'}
   before{@image_data=RubyPager::Page.load_from_xml(test_file).image_data}
   it "allows access to the image file name field" do
@@ -374,6 +374,16 @@ RSpec.describe RubyPager::Coords, :type => :aruba do
   it "allows points to be deleted" do
     @coords.delete(1)
     expect(@coords.get_consolidated_data).to eql("1,2 5,6")
+  end
+
+  it "allows to clears all points" do
+    @coords.clear
+    expect(@coords.size).to eql(0)
+  end
+
+  it "allows to reload points" do
+    @coords.reload("9,8 7,6 5,4")
+    expect(@coords.get_consolidated_data).to eql("9,8 7,6 5,4")
   end
 
   it "has a blank data creator" do

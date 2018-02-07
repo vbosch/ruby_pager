@@ -117,9 +117,7 @@ module RubyPager
       if @data["PcGts"]["Page"]["TextRegion"]
         if @data["PcGts"]["Page"]["TextRegion"].class == Array
           region_array= @data["PcGts"]["Page"]["TextRegion"]
-          ap region_array
           region_array.each_with_index {|text_region,index |
-            ap text_region
             @text_regions[text_region["@id"]]=Text_Region.new(index,text_region)
           }
         end
