@@ -4,6 +4,7 @@ module RubyPager
   class Text_Region
     attr_reader :id, :index, :custom, :contour
     def initialize(ex_index, ex_data)
+      @logger = Utils::ApplicationLogger.instance
       @data=ex_data
       @index=ex_index
       @id = @data["@id"]
@@ -40,6 +41,16 @@ module RubyPager
       return @text_lines.has_key? line_id
     end
 
+    def delete(ex_line_id)
+      if has_line? ex_line_id
+        @logger.info("Deleting text region #{ex_line_id}")
+        @text_lines.delete(ex_line_id)
+        review_lines_index
+      else
+        raise(ArgumentError, "Line id #{ex_line_id} does not exist so it can not be deleted")
+      end
+    end
+
     def clear_text_lines()
       @text_lines.clear
     end
@@ -71,10 +82,17 @@ module RubyPager
 
     def load_text_lines()
       if @data["TextLine"]
-        line_array=@data["TextLine"]
-        line_array.each_with_index {|text_line,index |
-          @text_lines[text_line["@id"]]=Text_Line.new(index,text_line)
-        }
+        if @data["TextLine"].class == Array
+          line_array=@data["TextLine"]
+          line_array.each_with_index {|text_line,index |
+            @text_lines[text_line["@id"]]=Text_Line.new(index,text_line)
+          }
+        end
+
+        if @data["TextLine"].class == Hash
+          text_line=@data["TextLine"]
+          @text_lines[text_line["@id"]]=Text_Line.new(0,text_line)
+        end
       end
     end
 
@@ -89,6 +107,14 @@ module RubyPager
       @data["TextLine"].clear if @data["TextLine"]
       @text_lines.values.each {|text_line|
         @data["TextLine"].push(text_line.get_consolidated_data)
+      }
+    end
+
+    def review_lines_index
+      index =0
+      @text_lines.values.each {|line|
+        line.index=index
+        index+=1
       }
     end
 

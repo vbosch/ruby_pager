@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<PcGts xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15" xsi:schemaLocation="http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15 http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15/pagecontent.xsd" pcGtsId="">
+  <Metadata>
+    <Creator>Ruby Page</Creator>
+    <Created>2018-02-08T16:46:58</Created>
+    <LastChange>2018-02-08T16:46:58</LastChange>
+  </Metadata>
+  <Page imageFilename="test.jpg" imageWidth="4715" imageHeight="3483">
+    <ReadingOrder/>
+  </Page>
+</PcGts>

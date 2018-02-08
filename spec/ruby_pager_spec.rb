@@ -44,6 +44,21 @@ RSpec.describe RubyPager::Page , :type => :aruba do
   let(:out_page_file){'./page.xml'}
   before{@page=RubyPager::Page.load_from_xml(test_file);}
 
+  it "loads correctly xmls with only one line in a region" do
+    one_line = RubyPager::Page.load_from_xml("one_line.xml")
+    expect(one_line.size).to eql(1) and expect(one_line["line_region"].size).to eql(1)
+  end
+
+  it "loads correctly xmls with no lines in a region" do
+    no_lines = RubyPager::Page.load_from_xml("no_lines.xml")
+    expect(no_lines.size).to eql(1) and expect(no_lines["empty_region"].size).to eql(0)
+  end
+
+  it "loads correctly xmls with no regions" do
+    no_regions = RubyPager::Page.load_from_xml("no_regions.xml")
+    expect(no_regions.size).to eql(0)
+  end
+
   it "allows access to file name" do
     expect(@page.file_name).to eql(test_file)
   end
@@ -70,6 +85,16 @@ RSpec.describe RubyPager::Page , :type => :aruba do
     expect(check).to eql(true)
   end
 
+  it "allows to delete a region by id" do
+    old=@page.size
+    @page.delete "TextRegion_1507554599035_50"
+    expect(@page.size).to eql(old-1)
+  end
+
+  it "thows exception when a non existent line is tried to be deleted" do
+    expect{@page.delete "region_moises"}.to raise_error(ArgumentError)
+  end
+
   it "loads the correct number of text regions" do
     external_count=`cat test.xml | grep '<TextRegion' | wc -l`.to_i
     expect(@page.size).to eql(external_count)
@@ -82,9 +107,9 @@ RSpec.describe RubyPager::Page , :type => :aruba do
 
   it "creates basic xml from image file" do
     img_page = RubyPager::Page.create_from_image("test.jpg")
-    check=File.exists?("image.xml")
     img_page.create_full_page_region("ruby_region")
     img_page.save("image.xml")
+    check=File.exists?("image.xml")
     external_count=`cat image.xml | grep '<TextRegion' | wc -l`.to_i
     expect(check).to eql(true) and expect(external_count).to eql(1)
   end
@@ -225,6 +250,16 @@ RSpec.describe RubyPager::Text_Region , :type => :aruba do
   it "allows access to the custom field" do
     expect(@region.custom).not_to be_nil
 
+  end
+
+  it "allows to delete a line by id" do
+    old=@region.size
+    @region.delete "line_0"
+    expect(@region.size).to eql(old-1)
+  end
+
+  it "thows exception when a non existent line is tried to be deleted" do
+    expect{@region.delete "line_moises"}.to raise_error(ArgumentError)
   end
 
   it "allows access to the region contour" do

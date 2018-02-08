@@ -66,11 +66,12 @@ module RubyPager
 
     def delete(ex_region_id)
       if has_region? ex_region_id
-      @logger.info("Deleting text region #{ex_region_id}")
+        @logger.info("Deleting text region #{ex_region_id}")
         @text_regions.delete(ex_region_id)
         review_regions_index()
+      else
+        raise(ArgumentError, "Region id #{ex_region_id} does not exist so it can not be deleted")
       end
-      raise(ArgumentError, "Region id #{ex_region_id} does not exist so it can not be deleted") unless @text_regions.has_key? ex_region_id
     end
 
     def push(ex_text_region)

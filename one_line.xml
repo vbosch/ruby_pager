@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<PcGts xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15" xsi:schemaLocation="http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15 http://schema.primaresearch.org/PAGE/gts/pagecontent/2013-07-15/pagecontent.xsd" pcGtsId="">
+  <Metadata>
+    <Creator>Ruby Page</Creator>
+    <Created>2018-02-08T16:46:58</Created>
+    <LastChange>2018-02-08T16:46:58</LastChange>
+  </Metadata>
+  <Page imageFilename="test.jpg" imageWidth="4715" imageHeight="3483">
+    <TextRegion id="line_region" custom="">
+      <Coords points="0,0 0,4715 3483,4715 3483,0"/>
+			<TextLine id="line_0">
+				<Coords points="16,0 305,0 305,112 16,112" />
+				<Baseline points="" />
+				<TextEquiv>
+					<Unicode>QUE 0.0260531 SE 0.03597 CE 0.042705 A 0.00188892 LES 0.214666 TE 0.0261389 LE 0.0465788 DE 0.201388 PER 0.0331285 DES 0.0896861 ME 0.0215401 EN 0.0273062 ES 0.0502558 ET 0.0750531 PRE 0.0306363 NOB 2.82646e-05 NOI 9.50498e-05 RE 0.0464671 NE 0.026413 NOM 0.000249426 NON 0.000673057 NOS 0.00177215 NOT 5.88758e-05 NOU 0.00122318 NOV 1.05446e-05 NOZ 1.33179e-05</Unicode>
+				</TextEquiv>
+			</TextLine>
+    </TextRegion>
+    <ReadingOrder/>
+  </Page>
+</PcGts>
