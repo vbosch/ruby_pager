@@ -1,0 +1,55 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+require "ruby_pager"
+require "trollop"
+require "ap"
+
+
+opts = Trollop::options do
+  version "line_edit 0.0.1 (c) 2018 Vicente Bosch Campos"
+  banner <<-EOS
+region_edit is a command tool that allows the creation,edition or deletion of text regions in a Page XML file
+Usage:
+	generate_htk_language_model [options]
+	where [options] are:
+  EOS
+  opt :mode ,"Three operation modes exist: mk (creates a region), rm (removes a region as per region id provided) , ed (edit a region as per data provided).", :type=> :string, :default => "image"
+  opt :input_file, "page input file used as base for the region creation/edition/deletion", :type => :string, :default => "input.xml"
+  opt :output_file, "page output file where the updated xml page will be saved", :type => :string, :default => "output.xml"
+  opt :label_id, "label id of the region to be added, edited or deleted", :type => :string
+  opt :coords, "coords to be used in the addition of edition of a text region. Format: \"x1,y1 x2,y2 x3,y3...\" (quotation marks required)" , :type => :string
+  opt :new_label_id, "new label id of the region that is being edited", :type => :string
+
+end
+
+Trollop::die :mode, "Operation mode was not selected" unless opts[:mode]
+Trollop::die :mode, "Operation mode selected must be either mk (make), rm (remove) or ed (edit)" unless opts[:mode]=="mk" or opts[:mode]=="rm" or opts[:mode]=="ed"
+Trollop::die :input_file, "Input page file name was not indicated" unless opts[:input_file]
+Trollop::die :input_file, "Indicated input page file does not exist which is required" unless File.exist?(opts[:input_file])
+Trollop::die :output_file, "Output page file name was not indicated" unless opts[:output_file]
+Trollop::die :output_file, "Indicated output page file exists which will cause the command to overwrite it" if File.exist?(opts[:output_file])
+Trollop::die :label_id, "Label id of region to be added/edited/deleted was not specified" unless opts[:label_id]
+Trollop::die :coords, "Region was selected to be addedd but no coordinates for the contour were provided" if opts[:mode]=="mk" and not opts[:coords]
+
+input_page = RubyPager::Page.load_from_xml(opts[:input_file])
+
+if opts[:mode]=="mk"
+  new_region=RubyPager::Text_Region.blank
+  new_region.id=opts[:label_id]
+  new_region.contour.reload(opts[:coords])
+  input_page.push(new_region)
+elsif opts[:mode]=="rm"
+  if input_page.has_region? opts[:label_id]
+    input_page.delete opts[:label_id]
+  end
+else
+  if input_page.has_region? opts[:label_id]
+    input_page[opts[:label_id]].contour.reload(opts[:coords]) if opts[:coords]
+    if opts[:new_label_id]
+      input_page[opts[:label_id]].id = opts[:new_label_id] unless input_page.has_region? opts[:new_label_id]
+    end
+  end
+end
+
+input_page.save(opts[:output_file])
