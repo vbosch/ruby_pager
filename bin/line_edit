@@ -9,7 +9,7 @@ require "ap"
 opts = Trollop::options do
   version "line_edit 0.0.1 (c) 2018 Vicente Bosch Campos"
   banner <<-EOS
-region_edit is a command tool that allows the creation,edition or deletion of text regions in a Page XML file
+line_edit is a command tool that allows the creation,edition or deletion of text lines in a Page XML file
 Usage:
 	generate_htk_language_model [options]
 	where [options] are:
@@ -17,7 +17,8 @@ Usage:
   opt :mode ,"Three operation modes exist: mk (creates a region), rm (removes a region as per region id provided) , ed (edit a region as per data provided).", :type=> :string, :default => "image"
   opt :input_file, "page input file used as base for the region creation/edition/deletion", :type => :string, :default => "input.xml"
   opt :output_file, "page output file where the updated xml page will be saved", :type => :string, :default => "output.xml"
-  opt :label_id, "label id of the region to be added, edited or deleted", :type => :string
+  opt :region_id, "label id of the region to be added, edited or deleted", :type => :string
+  opt :line_id, "label id of the region to be added, edited or deleted", :type => :string
   opt :coords, "coords to be used in the addition of edition of a text region. Format: \"x1,y1 x2,y2 x3,y3...\" (quotation marks required)" , :type => :string
   opt :new_label_id, "new label id of the region that is being edited", :type => :string
 

@@ -35,11 +35,12 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "aruba"
   spec.add_development_dependency "simplecov"
   spec.add_dependency "pry"
+  spec.add_dependency "rgeo"
+  spec.add_dependency "gosu"
   spec.add_dependency "rmagick"
   spec.add_dependency "trollop"
   spec.add_dependency "nori"
   spec.add_dependency "awesome_print"
   spec.add_dependency "nokogiri"
   spec.add_dependency "extendmatrix"
-  spec.add_dependency "gtk3"
 end

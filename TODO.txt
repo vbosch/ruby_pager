@@ -4,5 +4,11 @@ http://iridakos.com/tutorials/2018/01/25/creating-a-gtk-todo-application-with-ru
 http://bundler.io/v1.12/guides/creating_gem.html
 https://relishapp.com/rspec/rspec-expectations/v/3-7/docs/built-in-matchers
 
+CALCULATIONS: RGEO
+http://daniel-azuma.com/articles/georails/part-3i -->Rgeo
 
-sudo apt-get install ruby-rspec
+INTERFACE: GOSU
+https://github.com/gosu/gosu-examples
+https://github.com/gosu/gosu/wiki/Getting-Started-on-Linux
+https://github.com/gosu/gosu/wiki/Ruby-Tutorial
+
