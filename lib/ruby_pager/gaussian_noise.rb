@@ -1,0 +1,2 @@
+class GaussianNoise
+end
