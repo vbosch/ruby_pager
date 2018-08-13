@@ -47,6 +47,10 @@ module RubyPager
       review_points_index()
     end
 
+    def vertical_noise(ex_std_dev)
+      @points.each {|point| point.vertical_noise(ex_std_dev)}
+    end
+
     def self.blank_data
       res = ""
       return res

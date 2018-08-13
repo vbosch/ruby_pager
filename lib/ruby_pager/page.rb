@@ -64,6 +64,10 @@ module RubyPager
       return @text_regions.has_key? ex_region_id
     end
 
+    def each_region
+      @text_regions.values.each {|text_region| yield text_region}
+    end
+
     def delete(ex_region_id)
       if has_region? ex_region_id
         @logger.info("Deleting text region #{ex_region_id}")

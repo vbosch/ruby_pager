@@ -10,7 +10,6 @@ module RubyPager
       @text = @data["TextEquiv"]["Unicode"]
       load_coords()
       load_baseline()
-
     end
 
     def self.blank
@@ -35,6 +34,10 @@ module RubyPager
     def get_consolidated_data
       consolidate_data()
       return @data
+    end
+
+    def baseline_vertical_noise(ex_std_dev)
+      @baseline.vertical_noise(ex_std_dev)
     end
 
     def self.blank_data

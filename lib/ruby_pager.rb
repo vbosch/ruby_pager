@@ -11,6 +11,7 @@ require "ruby_pager/image_data"
 require "ruby_pager/image"
 require "ruby_pager/extendmatrix2"
 require "ruby_pager/histogram"
+require "ruby_pager/gaussian_noise"
 require "ruby_pager/application_logger"
 module RubyPager
   # Your code goes here...

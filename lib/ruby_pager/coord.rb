@@ -28,6 +28,11 @@ module RubyPager
       return @data
     end
 
+    def vertical_noise(ex_std_dev)
+      noise_generator=GaussianNoise.new(@y,ex_std_dev)
+      @y=noise_generator.rand.to_i
+    end
+
     private
 
     def load_coords()

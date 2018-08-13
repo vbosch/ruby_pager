@@ -78,6 +78,10 @@ module RubyPager
       return res
     end
 
+    def baseline_vertical_noise(ex_std_dev)
+      @text_lines.values.each {|text_line| text_line.baseline_vertical_noise(ex_std_dev) }
+    end
+
     private
 
     def load_text_lines()
@@ -104,10 +108,13 @@ module RubyPager
       @data["@custom"]=@custom
       @data["@id"]=@id
       @data["Coords"]["@points"]=@contour.get_consolidated_data
-      @data["TextLine"].clear if @data["TextLine"]
-      @text_lines.values.each {|text_line|
-        @data["TextLine"].push(text_line.get_consolidated_data)
-      }
+      @data["TextLine"].clear if @data["TextLine"] and @data["TextLine"].class == Array
+      if@text_lines.length>1
+        @text_lines.values.each {|text_line|
+         @data["TextLine"].push(text_line.get_consolidated_data)
+        }
+      end
+      @data["TextLine"]=@text_lines.values[0].get_consolidated_data if@text_lines.length==1
     end
 
     def review_lines_index

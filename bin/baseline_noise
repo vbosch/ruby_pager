@@ -1,0 +1,42 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+require "ruby_pager"
+require "trollop"
+require "ap"
+
+
+opts = Trollop::options do
+  version "baseline_noise 0.0.1 (c) 2018 Vicente Bosch Campos"
+  banner <<-EOS
+baseline_noise is a command tool that adds gaussian noise to each baseline point of each baseline present in the page document 
+Usage:
+	generate_htk_language_model [options]
+	where [options] are:
+  EOS
+  opt :mode ,"Three operation modes exist: ver (adds vertical noise), hor (adds horizontal noise) , all (adds both vertical and horizontal noise).", :type=> :string, :default => "ver"
+  opt :input_file, "page input file used as base for the region creation/edition/deletion", :type => :string, :default => "input.xml"
+  opt :output_file, "page output file where the updated xml page will be saved", :type => :string, :default => "output.xml"
+  opt :std_dev, "new label id of the region that is being edited", :type => :float, :default => 0.0
+
+end
+
+Trollop::die :mode, "Operation mode was not selected" unless opts[:mode]
+Trollop::die :mode, "Operation mode selected must be either ver (vertical), hor (horizontal) or all (both vertical and horizontal)" unless opts[:mode]=="ver" or opts[:mode]=="hor" or opts[:mode]=="all"
+Trollop::die :input_file, "Input page file name was not indicated" unless opts[:input_file]
+Trollop::die :input_file, "Indicated input page file does not exist which is required" unless File.exist?(opts[:input_file])
+Trollop::die :output_file, "Output page file name was not indicated" unless opts[:output_file]
+Trollop::die :output_file, "Indicated output page file exists which will cause the command to overwrite it" if File.exist?(opts[:output_file])
+Trollop::die :std_dev, "Standard deviation must be zero or a positive floating number" if opts[:std_dev]<0.0
+
+input_page = RubyPager::Page.load_from_xml(opts[:input_file])
+
+if opts[:mode]=="ver"
+  input_page.each_region{|region| region.baseline_vertical_noise(opts[:std_dev])}
+elsif opts[:mode]=="hor"
+  puts "Horizontal option currently not developed"
+else
+  puts "All option currently not developed"
+end
+
+input_page.save(opts[:output_file])
