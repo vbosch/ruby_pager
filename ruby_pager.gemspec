@@ -25,6 +25,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 	          	            spec.files         = `git ls-files -z`.split("\x0").reject do |f|
 	          	                f.match(%r{^(test|spec|features)/})
 	  end
+	  	  spec.bindir = 'bin' 
 	      spec.executables   = ["baseline_noise","line_edit","page_create","region_edit"]
 	        spec.require_paths = ["lib"]
 	          spec.add_development_dependency "bundler"
