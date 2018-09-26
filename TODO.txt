@@ -1,8 +1,17 @@
 
-https://github.com/cedlemo/ruby-gtk3-tutorial
-http://iridakos.com/tutorials/2018/01/25/creating-a-gtk-todo-application-with-ruby
+#CODE WORKFLOW & RELEASE
 http://bundler.io/v1.12/guides/creating_gem.html
 https://relishapp.com/rspec/rspec-expectations/v/3-7/docs/built-in-matchers
+https://github.com/svenfuchs/gem-release
+
+gem build whatever.gemspec -> creates gem file
+sudo gem install whatever_v_1.0.gem -> installs gem locally
+
+gem release -> loads gem into rubygems server for installation and distribution
+
+#GEM TUTORIALS
+https://github.com/cedlemo/ruby-gtk3-tutorial
+http://iridakos.com/tutorials/2018/01/25/creating-a-gtk-todo-application-with-ruby
 
 CALCULATIONS: RGEO
 http://daniel-azuma.com/articles/georails/part-3i -->Rgeo
