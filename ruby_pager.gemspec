@@ -4,14 +4,15 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 	Gem::Specification.new do |spec|
 	  spec.name          = "ruby_pager"
-	    spec.version       = RubyPager::VERSION
-	      spec.authors       = ["Vicente Bosch"]
-	        spec.email         = ["vbosch@gmail.com"]
+	  spec.version       = RubyPager::VERSION
+	  spec.authors       = ["Vicente Bosch"]
+	  spec.email         = ["vbosch@gmail.com"]
 
 	          spec.summary       = "command line tools to read and modify PAGE xmls"
 	            spec.description   = "command line tools to read and modify PAGE xmls"
 	              spec.homepage      = "https://github.com/vbosch/ruby_pager"
 	                spec.license       = "MIT"
+	                spec.bindir        = "bin"
 
 	                  # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
 	                  # to allow pushing to a single host or delete this section to allow pushing to any host.
@@ -25,7 +26,6 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 	          	            spec.files         = `git ls-files -z`.split("\x0").reject do |f|
 	          	                f.match(%r{^(test|spec|features)/})
 	  end
-#spec.bindir        = "bin"
 	      spec.executables   = ["baseline_noise","line_edit","page_create","region_edit"]
 	        spec.require_paths = ["lib"]
 	          spec.add_development_dependency "bundler"
