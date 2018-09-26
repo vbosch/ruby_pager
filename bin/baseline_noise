@@ -3,11 +3,11 @@
 require "bundler/setup"
 require "ruby_pager"
 #require_relative "../lib/ruby_pager.rb"
-require "trollop"
+require "optimist"
 require "ap"
 
 
-opts = Trollop::options do
+opts = Optimist::options do
   version "baseline_noise 0.0.1 (c) 2018 Vicente Bosch Campos"
   banner <<-EOS
 baseline_noise is a command tool that adds gaussian noise to each baseline point of each baseline present in the page document 
@@ -22,13 +22,13 @@ Usage:
 
 end
 
-Trollop::die :mode, "Operation mode was not selected" unless opts[:mode]
-Trollop::die :mode, "Operation mode selected must be either ver (vertical), hor (horizontal) or all (both vertical and horizontal)" unless opts[:mode]=="ver" or opts[:mode]=="hor" or opts[:mode]=="all"
-Trollop::die :input_file, "Input page file name was not indicated" unless opts[:input_file]
-Trollop::die :input_file, "Indicated input page file does not exist which is required" unless File.exist?(opts[:input_file])
-Trollop::die :output_file, "Output page file name was not indicated" unless opts[:output_file]
-Trollop::die :output_file, "Indicated output page file exists which will cause the command to overwrite it" if File.exist?(opts[:output_file])
-Trollop::die :std_dev, "Standard deviation must be zero or a positive floating number" if opts[:std_dev]<0.0
+Optimist::die :mode, "Operation mode was not selected" unless opts[:mode]
+Optimist::die :mode, "Operation mode selected must be either ver (vertical), hor (horizontal) or all (both vertical and horizontal)" unless opts[:mode]=="ver" or opts[:mode]=="hor" or opts[:mode]=="all"
+Optimist::die :input_file, "Input page file name was not indicated" unless opts[:input_file]
+Optimist::die :input_file, "Indicated input page file does not exist which is required" unless File.exist?(opts[:input_file])
+Optimist::die :output_file, "Output page file name was not indicated" unless opts[:output_file]
+Optimist::die :output_file, "Indicated output page file exists which will cause the command to overwrite it" if File.exist?(opts[:output_file])
+Optimist::die :std_dev, "Standard deviation must be zero or a positive floating number" if opts[:std_dev]<0.0
 
 input_page = RubyPager::Page.load_from_xml(opts[:input_file])
 

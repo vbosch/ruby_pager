@@ -2,11 +2,11 @@
 
 require "bundler/setup"
 require "ruby_pager"
-require "trollop"
+require "optimist"
 require "ap"
 
 
-opts = Trollop::options do
+opts = Optimist::options do
   version "page_create 0.0.1 (c) 2018 Vicente Bosch Campos"
   banner <<-EOS
 page_create is a command tool that creates Page format xmls as per defined input
@@ -24,14 +24,14 @@ Usage:
   opt :region_name, "Label to be used for the full text region created", :type=>:string, :default => "region_1"
 end
 
-Trollop::die :mode, "Operation mode was not selected" unless opts[:mode]
-Trollop::die :mode, "Operation mode selected must be either data or image" unless opts[:mode]=="data" or opts[:mode]=="image"
-Trollop::die :image_file, "Image file name was not indicated" unless opts[:image_file]
-Trollop::die :image_file, "Indicated image file does not exist which is required in image mode" unless File.exist?(opts[:image_file]) or opts[:mode]=="data"
-Trollop::die :creator, "Creator name was not indicated" unless opts[:creator]
-Trollop::die :width, "Width parameter can not be a negative value" unless opts[:width] >= 0
-Trollop::die :height, "Height parameter can not be a negative value" unless opts[:height] >= 0
-Trollop::die :region_name, "Region name can't be empty if the creation of the full text region was selected" if opts[:full] and opts[:region_name].empty?
+Optimist::die :mode, "Operation mode was not selected" unless opts[:mode]
+Optimist::die :mode, "Operation mode selected must be either data or image" unless opts[:mode]=="data" or opts[:mode]=="image"
+Optimist::die :image_file, "Image file name was not indicated" unless opts[:image_file]
+Optimist::die :image_file, "Indicated image file does not exist which is required in image mode" unless File.exist?(opts[:image_file]) or opts[:mode]=="data"
+Optimist::die :creator, "Creator name was not indicated" unless opts[:creator]
+Optimist::die :width, "Width parameter can not be a negative value" unless opts[:width] >= 0
+Optimist::die :height, "Height parameter can not be a negative value" unless opts[:height] >= 0
+Optimist::die :region_name, "Region name can't be empty if the creation of the full text region was selected" if opts[:full] and opts[:region_name].empty?
 
 
 if opts[:mode] == "image"
