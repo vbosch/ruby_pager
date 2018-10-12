@@ -1,3 +1,13 @@
+#IDEAS
+0) Sort Baselines and Sort Regions -> new algorithm classes line sort , contour sort
+1) Generate Line Contour -> Text line class level
+2) Visualizer
+3) Edit region app - add mode to delete all contained baselines -> text region class level
+4) Separation line to baseline
+5) Extract features
+6) Extract angled features
+7) Extract HMM training format for regions and lines
+
 
 #CODE WORKFLOW & RELEASE
 http://bundler.io/v1.12/guides/creating_gem.html
@@ -20,4 +30,5 @@ INTERFACE: GOSU
 https://github.com/gosu/gosu-examples
 https://github.com/gosu/gosu/wiki/Getting-Started-on-Linux
 https://github.com/gosu/gosu/wiki/Ruby-Tutorial
-
+http://dreamingechoes.github.io/game/gosu/ruby/become-a-videogame-developer-master-with-gosu-and-ruby/
+https://www.rubydoc.info/github/gosu/gosu/master/Gosu/Window
