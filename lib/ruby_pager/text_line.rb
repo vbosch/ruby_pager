@@ -7,7 +7,11 @@ module RubyPager
       @data=ex_data
       @index=ex_index
       @id = @data["@id"]
-      @text = @data["TextEquiv"]["Unicode"]
+      if @data.has_key? "TextEquiv"
+        @text = @data["TextEquiv"]["Unicode"]
+      else
+        @text = ""
+      end
       load_coords()
       load_baseline()
     end
@@ -62,6 +66,7 @@ module RubyPager
     end
 
     def consolidate_data()
+      @data = self.blank_data
       @data["@id"]=@id
       @data["TextEquiv"]["Unicode"]=@text
       @data["Baseline"]["@points"]=@baseline.get_consolidated_data

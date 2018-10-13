@@ -9,9 +9,9 @@ require "ap"
 opts = Optimist::options do
   version "page_visualizer 0.0.1 (c) 2018 Vicente Bosch Campos"
   banner <<-EOS
-region_edit is a command tool that allows the creation,edition or deletion of text regions in a Page XML file
+page_visualizer is a command tool that allows to visualize and edit Page XML files
 Usage:
-	generate_htk_language_model [options]
+	page_visualizer [options]
 	where [options] are:
   EOS
   opt :mode ,"Three operation modes exist: list (edit a list of files as per a list), dir (edit all xml documents in the directory), file (edit a single file).", :type=> :string, :default => "file"

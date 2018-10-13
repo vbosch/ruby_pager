@@ -16,9 +16,52 @@ module RubyPager
       return @points.size
     end
 
+    def each
+      @points.each {|point| yield point}
+    end
+
     def [](ex_index)
       raise(RangeError, "Index #{ex_index} is out of range") unless ex_index.between?(0,@points.size-1)
       return @points[ex_index]
+    end
+
+    def avg_height
+      total=0.0
+      @points.each{|coord| total+=coord.y}
+      total/size
+    end
+
+    def min_height
+      max=-1
+      @points.each{|coord| max= max > coord.y ? max : coord.y}
+      return max
+    end
+
+    def max_height
+      min = -1
+      min=@points[0].y if size > 0
+      @points.each{|coord| min= min < coord.y ? min : coord.y}
+      return min
+    end
+
+    def max_width
+      max=-1
+      @points.each{|coord| max= max > coord.x ? max : coord.x}
+      return max
+    end
+
+    def min_width
+      min = -1
+      min=@points[0].x if size > 0
+      @points.each{|coord| min= min < coord.x ? min : coord.x}
+      return min
+    end
+
+    def height
+      min_height-max_height
+    end
+    def width
+      max_width-min_width
     end
 
     def get_consolidated_data
@@ -62,6 +105,7 @@ module RubyPager
       coord_string_array.each_with_index {|string_coord,index|
         @points.push(Coord.new(index,string_coord))
       }
+
     end
 
     def consolidate_data

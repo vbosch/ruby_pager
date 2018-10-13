@@ -1,0 +1,42 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+require "ruby_pager"
+require "optimist"
+require "ap"
+
+
+opts = Optimist::options do
+  version "page_sorter 0.0.1 (c) 2018 Vicente Bosch Campos"
+  banner <<-EOS
+page_sorter is a command tool that prints out the region, text line or full sort order of a Page XML file
+Usage:
+	page_sorter [options]
+	where [options] are:
+  EOS
+  opt :mode ,"Three operation modes exist: regions (provide order of regions), lines (provides order of selected region) , full (provides order of regions and the lines within them).", :type=> :string, :default => "lines"
+  opt :input_file, "page input file of which the order must be provided as per the selected mode", :type => :string, :default => "input.xml"
+  opt :label_id, "label id of the region for which to provide text line order", :type => :string
+
+end
+
+Optimist::die :mode, "Operation mode was not selected" unless opts[:mode]
+Optimist::die :mode, "Operation mode selected must be either: regions, lines or full" unless opts[:mode]=="regions" or opts[:mode]=="lines" or opts[:mode]=="full"
+Optimist::die :input_file, "Input page file name was not indicated" unless opts[:input_file]
+Optimist::die :input_file, "Indicated input page file does not exist which is required" unless File.exist?(opts[:input_file])
+Optimist::die :label_id, "Label id of region for which to provide the line sort order (lines mode)" unless opts[:mode]!="lines" or opts[:label_id]
+
+input_page = RubyPager::Page.load_from_xml(opts[:input_file])
+
+if opts[:mode]=="lines"
+  if input_page.has_region? opts[:label_id]
+    alg_line_sort = Algorithm_Line_Sorter.new(input_page[opts[:label_id]])
+    ap alg_line_sort.line_statistics
+  else
+    puts "Error, specified region #{opts[:label_id]} does not exist"
+  end
+elsif opts[:mode]=="regions"
+  puts "Regions sort mode"
+else
+  puts "Full sort mode"
+end

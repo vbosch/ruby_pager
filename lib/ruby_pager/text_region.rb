@@ -18,7 +18,7 @@ module RubyPager
       return Text_Region.new(0,Text_Region.blank_data)
     end
 
-  def size
+    def size
       return @text_lines.size
     end
 
@@ -39,6 +39,10 @@ module RubyPager
 
     def has_line? line_id
       return @text_lines.has_key? line_id
+    end
+
+    def each
+      @text_lines.each {|id,text_line| yield id,text_line}
     end
 
     def delete(ex_line_id)
