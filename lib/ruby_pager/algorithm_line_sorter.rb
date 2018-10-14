@@ -12,7 +12,7 @@ class Algorithm_Line_Sorter
   def run
     collect_line_statistics
     if @line_statistics.size > 0
-      puts "collisions?"
+      ap @line_statistics.sort_by{|key,value| value[:avg_height]}
       calculate_possible_collisions
     end
   end

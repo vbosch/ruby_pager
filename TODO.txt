@@ -8,6 +8,12 @@
 6) Extract angled features
 7) Extract HMM training format for regions and lines
 
+#USE RGEO objects for:
+- baselines -> LineString
+- contours -> Polygon
+- MultiPolygon -> Page 
+
+Substitute coords and coord inner representation for RGEO objects or create translation from/to methods? 
 
 #CODE WORKFLOW & RELEASE
 http://bundler.io/v1.12/guides/creating_gem.html

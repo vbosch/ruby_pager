@@ -31,7 +31,7 @@ input_page = RubyPager::Page.load_from_xml(opts[:input_file])
 if opts[:mode]=="lines"
   if input_page.has_region? opts[:label_id]
     alg_line_sort = Algorithm_Line_Sorter.new(input_page[opts[:label_id]])
-    ap alg_line_sort.line_statistics
+  #  ap alg_line_sort.line_statistics
   else
     puts "Error, specified region #{opts[:label_id]} does not exist"
   end
