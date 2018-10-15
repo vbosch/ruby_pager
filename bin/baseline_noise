@@ -12,7 +12,7 @@ opts = Optimist::options do
   banner <<-EOS
 baseline_noise is a command tool that adds gaussian noise to each baseline point of each baseline present in the page document 
 Usage:
-	generate_htk_language_model [options]
+	baseline_noise [options]
 	where [options] are:
   EOS
   opt :mode ,"Three operation modes exist: ver (adds vertical noise), hor (adds horizontal noise) , all (adds both vertical and horizontal noise).", :type=> :string, :default => "ver"

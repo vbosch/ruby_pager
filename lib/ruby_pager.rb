@@ -13,6 +13,11 @@ require "ruby_pager/extendmatrix2"
 require "ruby_pager/histogram"
 require "ruby_pager/gaussian_noise"
 require "ruby_pager/application_logger"
+require "ruby_pager/visualizer"
+require "ruby_pager/main_window"
+require "ruby_pager/side_bar"
+require "ruby_pager/algorithm_line_sorter"
+
 module RubyPager
   # Your code goes here...
 end

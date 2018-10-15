@@ -11,7 +11,7 @@ opts = Optimist::options do
   banner <<-EOS
 line_edit is a command tool that allows the creation,edition or deletion of text lines in a Page XML file
 Usage:
-	generate_htk_language_model [options]
+	line_edit [options]
 	where [options] are:
   EOS
   opt :mode ,"Three operation modes exist: mk (creates a region), rm (removes a region as per region id provided) , ed (edit a region as per data provided).", :type=> :string, :default => "image"

@@ -1,0 +1,28 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+require "ruby_pager"
+require "optimist"
+require "ap"
+
+
+opts = Optimist::options do
+  version "page_visualizer 0.0.1 (c) 2018 Vicente Bosch Campos"
+  banner <<-EOS
+page_visualizer is a command tool that allows to visualize and edit Page XML files
+Usage:
+	page_visualizer [options]
+	where [options] are:
+  EOS
+  opt :mode ,"Three operation modes exist: list (edit a list of files as per a list), dir (edit all xml documents in the directory), file (edit a single file).", :type=> :string, :default => "file"
+  opt :input_file, "page input file or list file used to load the xml or xmls to be edited visually", :type => :string, :default => "input.xml"
+
+end
+
+Optimist::die :mode, "Operation mode was not selected" unless opts[:mode]
+Optimist::die :mode, "Operation mode selected must be either dir, list or file" unless opts[:mode]=="list" or opts[:mode]=="file" or opts[:mode]=="dir"
+Optimist::die :input_file, "Input page file name was not indicated" unless opts[:input_file]
+Optimist::die :input_file, "Indicated input page file does not exist which is required" unless File.exist?(opts[:input_file])
+
+window = Visualizer.new
+window.show

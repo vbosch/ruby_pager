@@ -11,7 +11,7 @@ opts = Optimist::options do
   banner <<-EOS
 page_create is a command tool that creates Page format xmls as per defined input
 Usage:
-	generate_htk_language_model [options]
+	page_create [options]
 	where [options] are:
   EOS
   opt :mode ,"operation mode for the page_create tool two modes exist data or image. Data creates a simple xml from the data provide while image takes the information from the image file", :type=> :string, :default => "image"
