@@ -19,6 +19,13 @@ module RubyPager
       @point.clone
     end
 
+    def point=(ex_point)
+      raise(ArgumentError, "Got passed a non point object") if ex_point.class != RGeo::Geos::CAPIPointImpl
+      raise(StandardError, "Got passed a point with a negative value to update the x coord") if ex_point.x < 0
+      raise(StandardError, "Got passed a point with a negative value to update the y coord") if ex_point.y < 0
+      @point=ex_point
+    end
+
     def x
       @point.x.to_i
     end

@@ -458,7 +458,25 @@ RSpec.describe RubyPager::Coord, :type => :aruba do
     expect(pclone.x.to_i).not_to eql(17)
   end
 
-  it "allow to update the id values" do
+  it "allows to update it via an RGEO point object" do
+    new_point=RGeo::Cartesian.factory.point(1000,2000)
+    @coord.point=new_point
+    expect(@coord.x).to eql(1000) and expect(@coord.y).to eql(2000)
+  end
+
+  it "throws an exception if the point is updated with a different class" do
+    expect{@coord.point=nil}.to raise_error(ArgumentError)
+  end
+
+  it "throws an exception if the point is updated with negative values in the x coord" do
+    expect{@coord.point=RGeo::Cartesian.factory.point(-1000,2000)}.to raise_error(StandardError)
+  end
+
+  it "throws an exception if the point is updated with negative values in the y coord" do
+    expect{@coord.point=RGeo::Cartesian.factory.point(1000,-2000)}.to raise_error(StandardError)
+  end
+
+  it "allows to update the id values" do
     @coord.id=100
     expect(@coord.id).to eql(100)
   end
