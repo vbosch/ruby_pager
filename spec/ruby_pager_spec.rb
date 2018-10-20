@@ -439,11 +439,25 @@ RSpec.describe RubyPager::Coord, :type => :aruba do
     expect(@coord.id).to eql(1)
   end
 
-  it "allow to update the coord values" do
+  it "allows to update the coord values" do
     @coord.x=2
     @coord.y=3
     expect(@coord.x).to eql(2) and expect(@coord.y).to eql(3)
   end
+  it "provides clone of inner point" do
+    expect(@coord.point.class).to eql(RGeo::Geos::CAPIPointImpl)
+  end
+  it "provided clone reflects current status of point" do
+    @coord.x=20
+    @coord.y=30
+    expect(@coord.point.x.to_i).to eql(20) and expect(@coord.point.y.to_i).to eql(30)
+  end
+  it "provided clone doesn't change as per changes in point" do
+    pclone=@coord.point
+    @coord.x=17
+    expect(pclone.x.to_i).not_to eql(17)
+  end
+
   it "allow to update the id values" do
     @coord.id=100
     expect(@coord.id).to eql(100)

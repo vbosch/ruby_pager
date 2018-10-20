@@ -66,7 +66,7 @@ module RubyPager
     end
 
     def consolidate_data()
-      @data = self.blank_data
+      @data = Text_Line.blank_data
       @data["@id"]=@id
       @data["TextEquiv"]["Unicode"]=@text
       @data["Baseline"]["@points"]=@baseline.get_consolidated_data
