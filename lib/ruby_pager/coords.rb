@@ -1,4 +1,4 @@
-
+require "rgeo"
 module RubyPager
 
   class Coords
@@ -94,11 +94,27 @@ module RubyPager
       @points.each {|point| point.vertical_noise(ex_std_dev)}
     end
 
+    def get_line_representation
+      return RGeo::Cartesian.factory.point(@point.x,y_coord.to_i)
+    end
+
+    def get_polygon_representation
+
+    end
+
     def self.blank_data
       res = ""
       return res
     end
+
+
     private
+
+    def get_rgeo_points
+      rgeo_points = Array.new
+      @points.each {|coord|rgeo_points.push(coord.point)}
+      return rgeo_points
+    end
 
     def load_points()
       coord_string_array= @data.split

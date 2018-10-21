@@ -1,0 +1,268 @@
+<?xml version='1.0'?>
+<PcGts xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schema.primaresearch.org/PAGE/gts/pagecontent/2010-03-19" xsi:schemaLocation="http://schema.primaresearch.org/PAGE/gts/pagecontent/2010-03-19 http://schema.primaresearch.org/PAGE/gts/pagecontent/2010-03-19/pagecontent.xsd" pcGtsId="pc-00000000">
+    <Metadata>
+        <Creator>UPVLC</Creator>
+        <Created>2013-07-15T15:07:14</Created>
+        <LastChange>2013-09-26T16:39:02</LastChange>
+    </Metadata>
+    <Page imageWidth="1697" imageFilename="156730128.jpg" imageHeight="2582">
+        <TextRegion type="paragraph" id="r1">
+            <Coords points="400,213 1497,176 1543,2086 446,2130"/>
+            <TextLine id="l2">
+                <Coords points="1423,250 1019,267 413,280 414,330 1020,317 1424,300"/>
+                <Baseline points="413,320 1019,307 1424,290"/>
+                <TextEquiv>
+                    <Unicode>van 12 d&lt;expan>eniers&lt;/expan> make&lt;expan>n&lt;/expan> die wille / tussche&lt;expan>n&lt;/expan></Unicode>
+                </TextEquiv>
+            </TextLine>
+            <TextLine id="l3">
+                <Coords points="1392,306 832,328 414,333 415,383 833,378 1393,356"/>
+                <Baseline points="414,373 832,368 1393,346"/>
+                <TextEquiv>
+                    <Unicode>4 d&lt;expan>eniers&lt;/expan> en&lt;expan>de&lt;/expan> 8 d&lt;expan>eniers&lt;/expan> van 6 d&lt;expan>eniers&lt;/expan> int assaey</Unicode>
+                </TextEquiv>
+            </TextLine>
+            <TextLine id="l4">
+                <Coords points="1414,362 418,387 419,437 1415,412"/>
+                <Baseline points="418,427 1415,402"/>
+                <TextEquiv>
+                    <Unicode>van 4 d&lt;expan>eniers&lt;/expan> nederwaert machmen</Unicode>
+                </TextEquiv>
+            </TextLine>
+            <TextLine id="l5">
+                <Coords points="1510,522 1254,527 1120,534 869,542 548,544 429,550 429,600 549,594 870,592 1121,584 1255,577 1511,572"/>
+                <Baseline points="429,590 549,584 870,582 1121,574 1255,567 1511,562"/>
+                <TextEquiv>
+                    <Unicode>ghij werct het sij troys tsij fransch</Unicode>
+                </TextEquiv>
+            </TextLine>
+            <TextLine id="l6">
+                <Coords points="1482,576 1087,584 1041,592 494,609 429,615 430,665 494,659 1042,642 1088,634 1483,626"/>
+                <Baseline points="429,655 494,649 1042,632 1088,624 1483,616"/>
+                <TextEquiv>
+                    <Unicode>tsij coolsch tsij vlaemsche o&lt;expan>m&lt;/expan>mer doe</Unicode>
+                </TextEquiv>
+            </TextLine>
+            <TextLine id="l7">
+                <Coords points="1440,632 418,666 418,716 1441,682"/>
+                <Baseline points="418,706 1441,672"/>
+                <TextEquiv>
+                    <Unicode>dat huwe 12 d&lt;expan>eniers&lt;/expan> van assaey si eene</Unicode>
+                </TextEquiv>
+            </TextLine>
+            <TextLine id="l8">
+                <Coords points="1465,680 427,719 428,769 1466,730"/>
+                <Baseline points="428,759 1466,720"/>
+                <TextEquiv>
+                    <Unicode>rechte half onse soe dat e&lt;expan>m&lt;/expan>mer 24</Unicode>
+                </TextEquiv>
+            </TextLine>
+            <TextLine id="l9">
+                <Coords points="1499,731 940,752 553,771 426,770 427,820 554,821 941,802 1500,781"/>
+                <Baseline points="427,810 554,811 941,792 1500,771"/>
+                <TextEquiv>
+                    <Unicode>d&lt;expan>eniers&lt;/expan> in de onse sijn soe sal v rekenin-</Unicode>
+                </TextEquiv>
+            </TextLine>
+            <TextLine id="l10">
+                <Coords points="1474,782 1055,806 423,830 424,880 1056,856 1475,832"/>
+                <Baseline points="424,870 1056,846 1474,822"/>
+                <TextEquiv>
+                    <Unicode>ghe vande&lt;expan>n&lt;/expan> pe&lt;expan>n&lt;/expan>ni&lt;expan>n&lt;/expan>ghe&lt;expan>n&lt;/expan> / en&lt;expan>de&lt;/expan> va&lt;expan>n&lt;/expan>de&lt;expan>n&lt;/expan> greyne&lt;expan>n&lt;/expan></Unicode>
+                </TextEquiv>
+            </TextLine>
+            <TextLine id="l11">
+                <Coords points="1414,843 786,871 541,874 436,884 437,934 542,924 787,921 1415,893"/>
+                <Baseline points="437,924 542,914 787,911 1414,883"/>
+                <TextEquiv>
+                    <Unicode>wel in vallen in die rekeni&lt;expan>n&lt;/expan>ghe</Unicode>
+                </TextEquiv>
+            </TextLine>
+            <TextLine id="l12">
+                <Coords points="1471,950 874,971 438,977 439,1027 875,1021 1472,1000"/>
+                <Baseline points="439,1017 875,1011 1471,990"/>
+                <TextEquiv>
+                    <Unicode>en&lt;expan>de&lt;/expan> vande&lt;expan>n&lt;/expan> d&lt;expan>enier&lt;/expan> Item es die onse ghe-</Unicode>
+                </TextEquiv>
+            </TextLine>
+            <TextLine id="l13">
+                <Coords points="1492,1003 1191,1015 761,1029 437,1032 438,1082 762,1079 1192,1065 1492,1053"/>
+                <Baseline points="438,1072 762,1069 1191,1055 1492,1043"/>
+                <TextEquiv>
+                    <Unicode>deelt in 24 d&lt;expan>eniers&lt;/expan> datme&lt;expan>n&lt;/expan> het inghelsche</Unicode>
+                </TextEquiv>
+            </TextLine>
+            <TextLine id="l14">
+                <Coords points="1460,1061 1217,1070 1132,1074 732,1083 446,1081 447,1131 733,1132 1133,1124 1218,1120 1460,1111"/>
+                <Baseline points="446,1121 733,1122 1132,1114 1217,1110 1460,1101"/>
+                <TextEquiv>
+                    <Unicode>¶ Nv come&lt;expan>n&lt;/expan> gout smeden en&lt;expan>de&lt;/expan> rude</Unicode>
+                </TextEquiv>
+            </TextLine>
+            <TextLine id="l15">
+                <Coords points="1481,1114 1094,1130 440,1140 441,1190 1095,1180 1481,1164"/>
+                <Baseline points="441,1180 1094,1170 1481,1154"/>
+                <TextEquiv>
+                    <Unicode>wisselairs en&lt;expan>de&lt;/expan> deelen die onsen in</Unicode>
+                </TextEquiv>
+            </TextLine>
+            <TextLine id="l16">
+                <Coords points="1487,1164 940,1194 687,1193 434,1195 435,1245 688,1243 941,1244 1488,1214"/>
+                <Baseline points="434,1235 687,1233 941,1234 1488,1204"/>
+                <TextEquiv>
+                    <Unicode>20 inghelsche zoe dat die reke&lt;expan>n&lt;/expan>ni&lt;expan>n&lt;/expan>ge</Unicode>
+                </TextEquiv>
+            </TextLine>
+            <TextLine id="l17">
+                <Coords points="1485,1219 1231,1230 1037,1241 430,1256 431,1306 1038,1291 1232,1280 1486,1269"/>
+                <Baseline points="431,1296 1037,1281 1232,1270 1486,1259"/>
+                <TextEquiv>
+                    <Unicode>metter rekeni&lt;expan>n&lt;/expan>ghe&lt;expan>n&lt;/expan> vande&lt;expan>n&lt;/expan> assaeye</Unicode>
+                </TextEquiv>
+            </TextLine>
+            <TextLine id="l18">
+                <Coords points="1461,1273 1310,1276 1114,1293 905,1297 591,1304 435,1308 436,1358 592,1354 905,1347 1114,1343 1311,1326 1462,1323"/>
+                <Baseline points="435,1348 591,1344 905,1337 1114,1333 1311,1316 1462,1313"/>
+                <TextEquiv>
+                    <Unicode>zeere verworcht es als ic v toghe&lt;expan>n&lt;/expan></Unicode>
+                </TextEquiv>
+            </TextLine>
+            <TextLine id="l19">
+                <Coords points="1509,1336 1150,1345 934,1358 869,1363 807,1351 623,1363 442,1361 443,1411 624,1413 807,1401 870,1413 935,1408 1150,1395 1510,1386"/>
+                <Baseline points="442,1401 623,1403 807,1391 869,1403 934,1398 1150,1385 1510,1376"/>
+                <TextEquiv>
+                    <Unicode>sal hier nae van scickene of alloey-</Unicode>
+                </TextEquiv>
+            </TextLine>
+            <TextLine id="l20">
+                <Coords points="1477,1394 1078,1404 774,1413 585,1415 441,1425 442,1475 586,1465 774,1463 1078,1454 1478,1444"/>
+                <Baseline points="441,1465 585,1455 774,1453 1078,1444 1478,1434"/>
+                <TextEquiv>
+                    <Unicode>eren / soe suldi legghe&lt;expan>n&lt;/expan> in die scale</Unicode>
+                </TextEquiv>
+            </TextLine>
+            <TextLine id="l21">
+                <Coords points="1522,1454 907,1467 804,1469 448,1479 449,1529 804,1519 907,1517 1523,1504"/>
+                <Baseline points="448,1519 804,1509 907,1507 1523,1494"/>
+                <TextEquiv>
+                    <Unicode>12 d&lt;expan>eniers&lt;/expan> En&lt;expan>de&lt;/expan> weghe&lt;expan>n&lt;/expan> daer teghe&lt;expan>n&lt;/expan> 5 bel-</Unicode>
+                </TextEquiv>
+            </TextLine>
+            <TextLine id="l22">
+                <Coords points="1486,1503 954,1519 438,1534 439,1584 955,1569 1487,1553"/>
+                <Baseline points="438,1574 955,1559 1487,1543"/>
+                <TextEquiv>
+                    <Unicode>ioen op dat ghij wilt assaeyeren </Unicode>
+                </TextEquiv>
+            </TextLine>
+            <TextLine id="l23">
+                <Coords points="1473,1553 1120,1576 1020,1571 445,1587 445,1637 1021,1621 1120,1626 1474,1603"/>
+                <Baseline points="445,1627 1021,1611 1120,1616 1474,1593"/>
+                <TextEquiv>
+                    <Unicode>dan suldi dat assaey wel maken</Unicode>
+                </TextEquiv>
+            </TextLine>
+            <TextLine id="l24">
+                <Coords points="1439,1615 1148,1628 1097,1620 711,1629 443,1643 443,1693 712,1679 1098,1670 1149,1678 1440,1665"/>
+                <Baseline points="443,1683 712,1669 1098,1660 1149,1668 1440,1655"/>
+                <TextEquiv>
+                    <Unicode>En&lt;expan>de&lt;/expan> dan suldi die 12 d&lt;expan>eniers&lt;/expan> die in die</Unicode>
+                </TextEquiv>
+            </TextLine>
+            <TextLine id="l25">
+                <Coords points="1456,1668 933,1682 875,1675 807,1678 443,1688 444,1738 808,1728 876,1725 934,1732 1457,1718"/>
+                <Baseline points="444,1728 808,1718 876,1715 934,1722 1457,1708"/>
+                <TextEquiv>
+                    <Unicode>scale ligghen an die een sijde / en&lt;expan>de&lt;/expan></Unicode>
+                </TextEquiv>
+            </TextLine>
+            <TextLine id="l26">
+                <Coords points="1474,1715 451,1741 452,1790 1475,1765"/>
+                <Baseline points="452,1780 1475,1755"/>
+                <TextEquiv>
+                    <Unicode>dat assaey an die ander sijde En&lt;expan>de&lt;/expan></Unicode>
+                </TextEquiv>
+            </TextLine>
+            <TextLine id="l27">
+                <Coords points="1445,1768 1094,1780 962,1775 458,1793 459,1843 963,1825 1095,1830 1446,1818"/>
+                <Baseline points="459,1833 963,1815 1095,1820 1446,1808"/>
+                <TextEquiv>
+                    <Unicode>dan suldi wt trecke&lt;expan>n&lt;/expan> die pe&lt;expan>n&lt;/expan>ni&lt;expan>n&lt;/expan>ghe</Unicode>
+                </TextEquiv>
+            </TextLine>
+            <TextLine id="l28">
+                <Coords points="1477,1824 692,1832 464,1846 465,1896 693,1882 1478,1874"/>
+                <Baseline points="465,1886 693,1872 1478,1864"/>
+                <TextEquiv>
+                    <Unicode>des ghij weet hoe menich d&lt;expan>eniers&lt;/expan> het</Unicode>
+                </TextEquiv>
+            </TextLine>
+            <TextLine id="l29">
+                <Coords points="1468,1876 462,1892 463,1942 1469,1926"/>
+                <Baseline points="463,1932 1469,1916"/>
+                <TextEquiv>
+                    <Unicode>mjn weghet dan die 12 d&lt;expan>eniers&lt;/expan> diet te</Unicode>
+                </TextEquiv>
+            </TextLine>
+            <TextLine id="l30">
+                <Coords points="1525,1923 787,1933 457,1943 458,1993 788,1983 1526,1973"/>
+                <Baseline points="458,1983 787,1973 1525,1963"/>
+                <TextEquiv>
+                    <Unicode>vore&lt;expan>n&lt;/expan> woech En&lt;expan>de&lt;/expan> alzo menich 12 deel</Unicode>
+                </TextEquiv>
+            </TextLine>
+            <TextLine id="l31">
+                <Coords points="1510,1973 456,2000 457,2050 1510,2023"/>
+                <Baseline points="457,2040 1510,2013"/>
+                <TextEquiv>
+                    <Unicode>copers was daer in en&lt;expan>de&lt;/expan> also mene-</Unicode>
+                </TextEquiv>
+            </TextLine>
+            <TextLine id="l32">
+                <Coords points="1522,2028 655,2048 451,2063 452,2113 656,2098 1523,2078"/>
+                <Baseline points="452,2103 655,2088 1523,2068"/>
+                <TextEquiv>
+                    <Unicode>ghe&lt;expan>n&lt;/expan> assaey alst weghet alsoe vele</Unicode>
+                </TextEquiv>
+            </TextLine>
+            <TextLine id="l34">
+                <Coords points="1072,418 431,443 432,493 1073,468"/>
+                <Baseline points="431,483 1073,458"/>
+                <TextEquiv>
+                    <Unicode>assaey make&lt;expan>n&lt;/expan> van 3 d&lt;expan>eniers&lt;/expan></Unicode>
+                </TextEquiv>
+            </TextLine>
+            <TextLine id="l35">
+                <Coords points="1426,468 789,490 620,487 429,500 430,550 621,537 789,540 1427,518"/>
+                <Baseline points="429,540 621,527 789,530 1427,508"/>
+                <TextEquiv>
+                    <Unicode>¶ Reghele van soe wat onsen dat</Unicode>
+                </TextEquiv>
+            </TextLine>
+            <TextLine id="l36">
+                <Coords points="1433,899 439,932 440,982 1434,949"/>
+                <Baseline points="440,972 1433,939"/>
+                <TextEquiv>
+                    <Unicode>vander maerc En&lt;expan>de&lt;/expan> vander onsen</Unicode>
+                </TextEquiv>
+            </TextLine>
+            <TextLine id="l37">
+                <Coords points="1413,196 424,225 425,275 1414,246"/>
+                <Baseline points="425,265 1414,236"/>
+                <TextEquiv>
+                    <Unicode>want seluer boue&lt;expan>n&lt;/expan> 8 d&lt;expan>eniers&lt;/expan> machmen</Unicode>
+                </TextEquiv>
+            </TextLine>
+        </TextRegion>
+        <TextRegion type="page-number" id="r2">
+            <Coords points="128,174 271,172 272,273 129,281"/>
+            <TextLine id="l38">
+                <Coords points="255,211 149,218 150,268 255,261"/>
+                <Baseline points="149,258 255,251"/>
+                <TextEquiv>
+                    <Unicode>128</Unicode>
+                </TextEquiv>
+            </TextLine>
+        </TextRegion>
+    </Page>
+</PcGts>

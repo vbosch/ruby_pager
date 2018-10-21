@@ -1,4 +1,3 @@
-
 require "rgeo"
 
 module RubyPager
