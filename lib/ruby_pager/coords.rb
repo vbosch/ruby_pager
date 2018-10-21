@@ -95,11 +95,11 @@ module RubyPager
     end
 
     def get_line_representation
-      return RGeo::Cartesian.factory.point(@point.x,y_coord.to_i)
+      return RGeo::Cartesian.factory.line_string(get_rgeo_points)
     end
 
     def get_polygon_representation
-
+      return RGeo::Cartesian.factory.polygon(get_line_representation)
     end
 
     def self.blank_data
